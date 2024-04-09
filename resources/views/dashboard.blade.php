@@ -11,7 +11,7 @@
                 <div class="p-6 text-gray-900">
                     {{ __("You're logged in!") }}
                 </div>
-                <img src="{{ asset(auth()->user()->file->url) }}" alt="">
+                <img src="{{ asset(auth()->user()->profile->url) }}" alt="">
             </div>
         </div>
     </div>

@@ -72,7 +72,7 @@ class User extends Authenticatable
     /**
      * Get the user profile's image.
      */
-    public function file(): MorphOne
+    public function profile(): MorphOne
     {
         return $this->morphOne(File::class, 'fileable');
     }

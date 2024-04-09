@@ -13,7 +13,13 @@ Volt::route('posts', 'pages.post.index')
     ->middleware(['auth', 'verified', 'user-verified'])
     ->name('posts.index');
 
-Route::view('unverified', 'unverified')->name('unverified');
+Volt::route('users', 'pages.auth.users.index')
+    ->middleware(['auth', 'verified', 'admin'])
+    ->name('users.index');
+
+Route::view('unverified', 'unverified')
+    ->middleware(['auth', 'user-unverified'])
+    ->name('unverified');
 
 Route::view('profile', 'profile')
     ->middleware(['auth', 'verified'])

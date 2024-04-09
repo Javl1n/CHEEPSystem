@@ -4,7 +4,7 @@
      <section class="container w-full items-center">
          <div class="w-full bg-white rounded-lg overflow-hidden items-center">
              <div class="px-0 py-1">
-                 <div id="image-preview" class="p-2 w-full border border-gray-300 rounded-lg items-center text-center cursor-pointer">
+                 <div id="image-preview" class="p-2 w-full h-full border border-gray-300 rounded-lg items-center text-center cursor-pointer">
                      <input id="upload" wire:model={{ $model }} type="file" class="hidden" accept="image/*" />
                      <label for="upload" class="cursor-pointer m-8 w-full">
                          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-8 h-8 text-gray-700 mx-auto mb-4">

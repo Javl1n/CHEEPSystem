@@ -8,16 +8,16 @@ state(['contentInput'])
 
 <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg" x-data="{open: true}">
     <div class="text-gray-900">
-        <div class="p-6 flex justify-between shadow-sm">
+        <div class="p-6 flex justify-between border-b shadow-sm">
             <h1 class="font-bold">
                 {{ __("Add Post") }}
             </h1>
             <span class="text-sm font-bold cursor-pointer" x-on:click="open =! open" x-text="open ? 'close' : 'open'">
-                close
+                
             </span>
         </div>
 
-        <div x-show="open" class="p-6" x-collapse>
+        <div x-show="open" class="p-6" x-transition x-collapse>
             
             <textarea
             class="resize-none h-10 w-full p-0 text-lg rounded border-transparent focus:border-transparent overflow-hidden focus:ring-0"

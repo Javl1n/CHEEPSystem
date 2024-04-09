@@ -24,7 +24,7 @@
                <h1 class="text-7xl font-extrabold">Unverified Account</h1>
                <h1 class="text-2xl mt-10">This Account:</h1>
                <div class="inline-flex gap-4 mt-4 bg-white text-gray-800 py-2 px-4 rounded-lg">
-                    <img src="{{ asset(auth()->user()->file->url) }}" class="rounded-full max-h-20 shadow">
+                    <img src="{{ asset(auth()->user()->profile->url) }}" class="rounded-full max-h-20 shadow">
                     <div class="text-left my-auto">
                          <h2 class="text-2xl font-bold">{{ auth()->user()->name }}</h2>
                          <h3 class="text-lg">{{ auth()->user()->email }}</h3>

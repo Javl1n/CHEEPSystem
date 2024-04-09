@@ -61,19 +61,19 @@ $register = function () {
         'password' => Hash::make($this->password),
     ]);
 
-    $user->file()->create([
+    $user->profile()->create([
         'url' => 'storage/images/empty_profile.png'
     ]);
 
     $user->verification()->create()->file()->create([
-        'url' => $this->photo->store('verifications')
+        'url' => $this->photo->store('images/verifications')
     ]);
 
     event(new Registered($user));
 
     Auth::login($user);
 
-    $this->redirect(route('posts', absolute: false), navigate: true);
+    $this->redirect(route('dashboard', absolute: false), navigate: true);
 };
 
 ?>

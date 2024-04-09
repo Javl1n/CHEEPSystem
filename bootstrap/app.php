@@ -4,6 +4,7 @@ use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
 use App\Http\Middleware\UserIsVerified;
+use App\Http\Middleware\UserIsUnverified;
 use App\Http\Middleware\UserIsAdmin;
 
 return Application::configure(basePath: dirname(__DIR__))
@@ -14,8 +15,9 @@ return Application::configure(basePath: dirname(__DIR__))
     )
     ->withMiddleware(function (Middleware $middleware) {
         $middleware->alias([
-            'user-verified' =>UserIsVerified::class,
-            'admin' =>UserIsAdmin::class,
+            'user-verified' => UserIsVerified::class,
+            'admin' => UserIsAdmin::class,
+            'user-unverified' => UserIsUnverified::class
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions) {
