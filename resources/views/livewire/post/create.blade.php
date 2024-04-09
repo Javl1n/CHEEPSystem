@@ -57,9 +57,12 @@ $uploadPost = function () {
 
                 <div class="flex-1">
                     <div class="flex justify-between gap-2">
-                        <h1 class="text-lg">{{ auth()->user()->name }}</h1>
+                        <h1 class="text-lg font-bold">{{ auth()->user()->name }}</h1>
                     </div>
-                    <p class="text-sm leading-3">{{ auth()->user()->email }}</p>
+                    <p class="text-xs leading-3">
+                        {{-- {{ auth()->user()->email }} &#x2022  --}}
+                        {{ auth()->user()->role->name }}
+                    </p>
                 </div>
             </div>
             <div class="mb-10 mt-6">

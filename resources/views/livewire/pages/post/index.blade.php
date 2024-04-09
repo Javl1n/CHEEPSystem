@@ -12,7 +12,7 @@ state([
 
 ?>
 
-<div class="">
+<div class="overflow-auto">
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
             {{ __('Posts') }}

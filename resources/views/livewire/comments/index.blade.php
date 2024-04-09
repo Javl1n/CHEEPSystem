@@ -10,7 +10,7 @@ state([
 
 ?>
 
-<div class="px-6 py-2 text-gray-900">
+<div class="px-5 py-4 text-gray-900">
     <div class="border-t-2">
         @foreach ($post->comments as $comment)
             <div class="flex mt-4 gap-2">

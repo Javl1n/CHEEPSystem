@@ -10,11 +10,11 @@ state([
 ?>
 
 <div class="bg-white mt-6 overflow-hidden shadow-sm sm:rounded-lg">
-    <div class="px-6 pt-4 pb-2 text-gray-900">
+    <div class="px-5 pt-4 pb-1 text-gray-900">
         <div class="flex gap-2">
             <x-profile-picture :src="asset($post->user->profile->url)" class="h-10 shadow" />
             <div>
-                <h1>{{ $post->user->name }}</h1>
+                <h1 class="font-bold">{{ $post->user->name }}</h1>
                 <div class="flex leading-3 text-xs">
                     <p class="">
                         <span>{{ $post->user->role->name }}</span>
@@ -27,9 +27,8 @@ state([
             </div>
         </div>
         <div class="mt-4">
-            <p class="text-lg">{{ $post->content }}</p>
+            <p class="{{ $post->file ? 'text-lg' : 'text-3xl' }}">{{ $post->content }}</p>
         </div>
-        
     </div>
     @if($post->file)
         <img class="w-full" src="{{ asset($post->file->url) }}" alt="">

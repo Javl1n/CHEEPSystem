@@ -17,6 +17,10 @@ Volt::route('users', 'pages.auth.users.index')
     ->middleware(['auth', 'verified', 'admin'])
     ->name('users.index');
 
+Volt::route('messages', 'pages.messages.index')
+    ->middleware(['auth', 'verified', 'user-verified'])
+    ->name('messages.index');
+
 Route::view('unverified', 'unverified')
     ->middleware(['auth', 'user-unverified'])
     ->name('unverified');

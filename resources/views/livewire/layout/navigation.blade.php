@@ -35,6 +35,10 @@ $logout = function (Logout $logout) {
                     <x-nav-link :href="route('posts.index')" :active="request()->routeIs('posts.*')" wire:navigate>
                         {{ __('Posts') }}
                     </x-nav-link>
+
+                    <x-nav-link :href="route('messages.index')" :active="request()->routeIs('messages.*')" wire:navigate>
+                        {{ __('Chats') }}
+                    </x-nav-link>
                 </div>
             </div>
 

@@ -42,7 +42,7 @@ class DatabaseSeeder extends Seeder
         ]);
 
         foreach([$student, $teacher] as $role) {
-            User::factory(5)
+            User::factory(15)
             ->create([
                 'role_id' => $role->id
             ])->map(function ($user) {

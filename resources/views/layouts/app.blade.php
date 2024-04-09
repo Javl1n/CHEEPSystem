@@ -17,7 +17,7 @@
         @vite(['resources/css/app.css', 'resources/js/app.js'])
     </head>
     <body class="font-sans antialiased">
-        <div class="min-h-screen bg-gray-100 flex flex-col">
+        <div class="h-screen overflow-hidden bg-gray-100 flex flex-col">
             <livewire:layout.navigation />
 
             <!-- Page Heading -->
@@ -30,9 +30,9 @@
             @endif
 
             <!-- Page Content -->
-            <main>
+            {{-- <main class="flex-1 h-full"> --}}
                 {{ $slot }}
-            </main>
+            {{-- </main> --}}
         </div>
     </body>
 </html>
