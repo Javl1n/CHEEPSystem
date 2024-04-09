@@ -17,7 +17,8 @@ $verifyUser = function () {
 <div class=" bg-white overflow-hidden shadow-sm sm:rounded-lg">
     <div class="p-6 text-gray-900">
         <div class="flex gap-2">
-            <img class="h-12 w-12 aspect-square rounded-full shadow" src="{{ asset($user->profile->url) }}" alt="">
+            <x-profile-picture class="h-12 shadow" src="{{ asset($user->profile->url) }}" />
+            {{-- <img class="h-12 w-12 aspect-square rounded-full shadow" src="{{ asset($user->profile->url) }}" alt=""> --}}
             <div class="flex-1">
                 <div class="flex justify-between gap-2">
                     <h1 class="text-lg">{{ $user->name }}</h1>

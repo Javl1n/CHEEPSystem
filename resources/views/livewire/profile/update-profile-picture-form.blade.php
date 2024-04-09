@@ -43,7 +43,7 @@ $updateProfile = function () {
     <div class="mt-6 space-y-6">
         <div class="grid grid-cols-2 gap-2">
             <div class="">
-                <img class="mx-auto min-h-58 w-58 mt-1 rounded-lg border shadow" src="{{ asset(auth()->user()->profile->url) }}" alt="">
+                <img class="mx-auto w-60 aspect-square object-cover mt-1 rounded-lg border shadow" src="{{ asset(auth()->user()->profile->url) }}" alt="">
                 <div class="text-center text-xs mt-1 text-gray-500">
                     Current Profile
                 </div>

@@ -9,6 +9,7 @@ use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Relations\MorphOne;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use \Illuminate\Database\Eloquent\Relations\HasOne;
+use \Illuminate\Database\Eloquent\Relations\HasMany;
 
 class User extends Authenticatable
 {
@@ -35,6 +36,8 @@ class User extends Authenticatable
         'password',
         'remember_token',
     ];
+
+    protected $with = ['profile'];
 
     /**
      * Get the attributes that should be cast.
@@ -70,10 +73,30 @@ class User extends Authenticatable
     }
 
     /**
-     * Get the user profile's image.
+     * Get the user's profile image.
      */
     public function profile(): MorphOne
     {
         return $this->morphOne(File::class, 'fileable');
+    }
+
+    /**
+     * Get all of the posts for the User
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function posts(): HasMany
+    {
+        return $this->hasMany(Post::class);
+    }
+
+    /**
+     * Get all of the comments for the User
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function comments(): HasMany
+    {
+        return $this->hasMany(Comment::class);
     }
 }
