@@ -8,7 +8,7 @@ state([
         'verification' => ['file'],
         'role',
         'profile'
-    ])->get()
+    ])->latest()->get()
 ]);
 
 layout('layouts.app');

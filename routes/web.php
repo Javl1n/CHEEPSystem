@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use Livewire\Volt\Volt;
+use App\Http\Controllers\MessageController;
 
 Route::permanentRedirect('/', 'posts');
 
@@ -17,7 +18,11 @@ Volt::route('users', 'pages.auth.users.index')
     ->middleware(['auth', 'verified', 'admin'])
     ->name('users.index');
 
-Volt::route('messages', 'pages.messages.index')
+Volt::route('messages/{user}', 'pages.messages.show')
+    ->middleware(['auth', 'verified', 'user-verified'])
+    ->name('messages.show');
+
+Route::get('messages', [MessageController::class, 'index'])
     ->middleware(['auth', 'verified', 'user-verified'])
     ->name('messages.index');
 

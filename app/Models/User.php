@@ -99,4 +99,24 @@ class User extends Authenticatable
     {
         return $this->hasMany(Comment::class);
     }
+
+    /**
+     * Get all of the messagesSent for the User
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function messagesSent(): HasMany
+    {
+        return $this->hasMany(Message::class, 'sender_id');
+    }
+
+    /**
+     * Get all of the messagesSent for the User
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function messagesReceived(): HasMany
+    {
+        return $this->hasMany(Message::class, 'receiver_id');
+    }
 }

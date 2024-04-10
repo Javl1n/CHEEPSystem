@@ -10,9 +10,7 @@ state([
     'image'
 ]);
 
-$clearImage = function () {
-    return $this->image = '';
-};
+$clearImage = fn () => $this->image = '';
 
 $uploadComment = function () {
     $this->validate([
@@ -67,12 +65,12 @@ $uploadComment = function () {
     </div>
     <input type="file" class="hidden" id="image" wire:model='image'>
     @if (!$this->image)
-        <label for="image" class="w-8 h-8 hover:bg-gray-50 cursor-pointer rounded-full transition">
-            <x-bootstrap-icons icon="photo" class="h-4 mx-auto mt-2" />
+        <label for="image" class="w-8 h-8 hover:bg-gray-50 cursor-pointer rounded-full transition flex flex-col justify-center">
+            <x-bootstrap-icons icon="photo" class="h-4 mx-auto" />
         </label>
     @endif
-    <div class="w-8 h-8 hover:bg-gray-50 cursor-pointer rounded-full transition">
-        <x-bootstrap-icons x-on:click="$wire.uploadComment"  icon="send" width="32" height="32" class="h-4 w-4 ms-1 mt-2 rotate-45" />
+    <div class="w-8 h-8 hover:bg-gray-50 cursor-pointer rounded-full transition flex flex-col justify-center">
+        <x-bootstrap-icons x-on:click="$wire.uploadComment"  icon="send" width="32" height="32" class="h-4 w-4 ms-1 rotate-45" />
     </div>
 </div>
 
