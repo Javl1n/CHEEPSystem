@@ -25,7 +25,7 @@ $uploadPost = function () {
         'content' => $this->contentInput
     ]);
 
-    if($this->withPhoto) {
+    if($this->image) {
         $this->validate([
             'photo' => 'image',
         ]);

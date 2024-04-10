@@ -41,18 +41,18 @@ class DatabaseSeeder extends Seeder
             'name' => 'Student'
         ]);
 
-        foreach([$student, $teacher] as $role) {
-            User::factory(15)
-            ->create([
-                'role_id' => $role->id
-            ])->map(function ($user) {
-                $user->verification()->create()->file()->create([
-                    'url' => 'storage/images/bg-school.jpg'
-                ]);
-                $user->profile()->create([
-                    'url' => 'storage/images/empty_profile.png'
-                ]);
-            });
-        }
+        // foreach([$student, $teacher] as $role) {
+        //     User::factory(15)
+        //     ->create([
+        //         'role_id' => $role->id
+        //     ])->map(function ($user) {
+        //         $user->verification()->create()->file()->create([
+        //             'url' => 'storage/images/bg-school.jpg'
+        //         ]);
+        //         $user->profile()->create([
+        //             'url' => 'storage/images/empty_profile.png'
+        //         ]);
+        //     });
+        // }
     }
 }

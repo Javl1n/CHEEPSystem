@@ -33,9 +33,9 @@ boot(function () {
                 <x-profile-picture class="h-10 shadow" :src="asset($user->profile->url)" />
                 <div>
                     <div class="flex">
-                        <div @class([
+                        <div title="{{ $message->created_at->diffForHumans() }}" @class([
                             'rounded-3xl' => !$message->file,
-                            'bg-gray-100 p-2',
+                            'bg-gray-100 py-2 px-4',
                             'rounded rounded-r-2xl rounded-tl-2xl' => $message->file
                         ])>
                             {{ $message->content }}
@@ -50,9 +50,9 @@ boot(function () {
             <div class="flex justify-end gap-2">
                 <div>
                     <div class="flex justify-end">
-                        <div @class([
+                        <div title="{{ $message->created_at->diffForHumans() }}" @class([
                             'rounded-3xl' => !$message->file,
-                            'bg-gray-100 p-2',
+                            'bg-gray-100 py-2 px-4',
                             'rounded rounded-l-2xl rounded-tr-2xl' => $message->file
                         ])>
                             {{ $message->content }}
