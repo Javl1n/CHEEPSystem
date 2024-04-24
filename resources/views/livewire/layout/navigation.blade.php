@@ -25,10 +25,22 @@ $logout = function (Logout $logout) {
                 <!-- Navigation Links -->
                 <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
 
+                    
+
+                    
+
+                    <x-nav-link :href="route('posts.index')" :active="request()->routeIs('posts.*')" wire:navigate>
+                        {{ __('Posts') }}
+                    </x-nav-link>
+
+                    <x-nav-link :href="route('messages.index')" :active="request()->routeIs('messages.*')" wire:navigate>
+                        {{ __('Chats') }}
+                    </x-nav-link>
+
                     @role('admin')
-                        <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')" wire:navigate>
+                        {{-- <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')" wire:navigate>
                             {{ __('Dashboard') }}
-                        </x-nav-link>
+                        </x-nav-link> --}}
 
                         <x-nav-link :href="route('users.index')" :active="request()->routeIs('users.*')" wire:navigate>
                             {{ __('Users') }}
@@ -40,18 +52,12 @@ $logout = function (Logout $logout) {
                     @endrole
 
                     @role('student') 
-                        <x-nav-link :href="route('posts.index')" :active="request()->routeIs('posts.*')" wire:navigate>
-                            {{ __('Evaluations') }}
-                        </x-nav-link>
+                        @feature('Evaluation')
+                            <x-nav-link :href="route('student.evaluations.index')" :active="request()->routeIs('student.evaluations.*')" wire:navigate>
+                                {{ __('Evaluations') }}
+                            </x-nav-link>
+                        @endfeature
                     @endrole
-
-                    <x-nav-link :href="route('posts.index')" :active="request()->routeIs('posts.*')" wire:navigate>
-                        {{ __('Posts') }}
-                    </x-nav-link>
-
-                    <x-nav-link :href="route('messages.index')" :active="request()->routeIs('messages.*')" wire:navigate>
-                        {{ __('Chats') }}
-                    </x-nav-link>
                 </div>
             </div>
 

@@ -17,7 +17,7 @@ class EvaluationQuestionFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'content' => fake()->text(),
         ];
     }
 }

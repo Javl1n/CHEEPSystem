@@ -24,6 +24,7 @@ state([
             @unlessrole('Student')
                 @livewire('post.create')
             @endrole
+            
             @foreach ($posts as $post)
                 @livewire('post.show', ['post' => $post, 'loop' => $loop])
             @endforeach

@@ -4,6 +4,8 @@ namespace Database\Seeders;
 
 use App\Models\User;
 use App\Models\Role;
+use App\Models\Feature;
+use App\Models\EvaluationQuestion;
 use App\Models\UserVerificaiton;
 use App\Models\File;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
@@ -26,8 +28,8 @@ class DatabaseSeeder extends Seeder
         ]);
 
         $admin->users()->create([
-            'name' => 'Frank Leimbergh Armodia',
-            'email' => 'farmodia@gmail.com',
+            'name' => 'John T. Cator',
+            'email' => 'admin@gmail.com',
             'password' => Hash::make('admin123'),
         ])->profile()->create([
             'url' => 'storage/images/empty_profile.png'
@@ -40,6 +42,28 @@ class DatabaseSeeder extends Seeder
         $student = Role::create([
             'name' => 'Student'
         ]);
+
+        Feature::create([
+            'title' => 'Evaluation',
+        ]);
+
+        Feature::create([
+            'title' => 'Voting',
+        ]);
+
+        // EvaluationQuestion::factory(15)->create();
+
+        User::factory(15)
+            ->create([
+                'role_id' => 2
+            ])->map(function ($user) {
+                $user->verification()->create()->file()->create([
+                    'url' => 'storage/images/bg-school.jpg'
+                ]);
+                $user->profile()->create([
+                    'url' => 'storage/images/empty_profile.png'
+                ]);
+            });
 
         // foreach([$student, $teacher] as $role) {
         //     User::factory(15)

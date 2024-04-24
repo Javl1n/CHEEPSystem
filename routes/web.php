@@ -12,6 +12,14 @@ Volt::route('posts', 'pages.post.index')
     ->middleware(['auth', 'verified', 'user-verified'])
     ->name('posts.index');
 
+Route::middleware(['auth', 'verified', 'student'])->group(function () {
+    Volt::route('student/evaluations', 'pages.student.evaluations.index')
+        ->name('student.evaluations.index');
+
+    Volt::route('student/evaluations/{teacher}', 'pages.student.evaluations.show')
+        ->name('student.evaluations.show');
+}); 
+
 Route::middleware(['auth', 'verified', 'admin'])->group(function () {
     Volt::route('users', 'pages.admin.users.index')
         ->name('users.index');

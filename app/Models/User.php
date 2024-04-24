@@ -119,4 +119,24 @@ class User extends Authenticatable
     {
         return $this->hasMany(Message::class, 'receiver_id');
     }
+
+    /**
+     * Get all of the teacherEvaluations for the User
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function teacherEvaluations(): HasMany
+    {
+        return $this->hasMany(EvaluationTaken::class, 'teacher_id');
+    }
+
+    /**
+     * Get all of the studentEvaluations for the User
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function studentEvaluations(): HasMany
+    {
+        return $this->hasMany(EvaluationTaken::class, 'student_id');
+    }
 }

@@ -6,6 +6,7 @@ use Illuminate\Foundation\Configuration\Middleware;
 use App\Http\Middleware\UserIsVerified;
 use App\Http\Middleware\UserIsUnverified;
 use App\Http\Middleware\UserIsAdmin;
+use App\Http\Middleware\UserIsStudent;
 
 return Application::configure(basePath: dirname(__DIR__))
     ->withRouting(
@@ -17,6 +18,7 @@ return Application::configure(basePath: dirname(__DIR__))
         $middleware->alias([
             'user-verified' => UserIsVerified::class,
             'admin' => UserIsAdmin::class,
+            'student' => UserIsStudent::class,
             'user-unverified' => UserIsUnverified::class
         ]);
     })

@@ -30,30 +30,14 @@ rules([
     'photo' => 'required|image',
 ]);
 
-// $nextPart = function () {
-//     // $this->validate([
-//     //     'name' => ['required', 'string', 'max:255'],
-//     //     'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:'.User::class],
-//     //     'password' => ['required', 'string', 'confirmed', Rules\Password::defaults()],
-//     // ]);
-//     $this->part = 2;
-// };
-
-// $prevPart = function () {
-//     $this->part = 1;
-// };
-
 $setRoleButton = function ($role) {
     $this->role = $role;
 };
 
 $register = function () {
-    // $validated = $this->validate();
     $this->validate();
 
     $this->role = Role::where('id', $this->role)->first();
-
-    // $validated['password'] = Hash::make($validated['password']);
 
     $user = $this->role->users()->create([
         'name' => $this->name,
