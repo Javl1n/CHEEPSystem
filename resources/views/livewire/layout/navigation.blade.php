@@ -35,7 +35,7 @@ $logout = function (Logout $logout) {
                         </x-nav-link>
                         
                         <x-nav-link :href="route('admin.evaluations.index')" :active="request()->routeIs('admin.evaluations.*')" wire:navigate>
-                            {{ __('Manage Evaluations') }}
+                            {{ __('Evaluations') }}
                         </x-nav-link>
                     @endrole
 
