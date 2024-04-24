@@ -32,7 +32,7 @@ $uploadComment = function () {
         ]);
     }
 
-    return redirect('posts');
+    $this->redirect('posts');
 };
 
 ?>

@@ -25,7 +25,7 @@ $logout = function (Logout $logout) {
                 <!-- Navigation Links -->
                 <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
 
-                    @if(auth()->user()->role->id === 1)
+                    @role('admin')
                         <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')" wire:navigate>
                             {{ __('Dashboard') }}
                         </x-nav-link>
@@ -34,16 +34,16 @@ $logout = function (Logout $logout) {
                             {{ __('Users') }}
                         </x-nav-link>
                         
-                        <x-nav-link :href="route('users.index')" :active="request()->routeIs('users.*')" wire:navigate>
+                        <x-nav-link :href="route('admin.evaluations.index')" :active="request()->routeIs('admin.evaluations.*')" wire:navigate>
                             {{ __('Manage Evaluations') }}
                         </x-nav-link>
-                    @endif
+                    @endrole
 
-                    @if(auth()->user()->role->id === 3) 
+                    @role('student') 
                         <x-nav-link :href="route('posts.index')" :active="request()->routeIs('posts.*')" wire:navigate>
                             {{ __('Evaluations') }}
                         </x-nav-link>
-                    @endif
+                    @endrole
 
                     <x-nav-link :href="route('posts.index')" :active="request()->routeIs('posts.*')" wire:navigate>
                         {{ __('Posts') }}

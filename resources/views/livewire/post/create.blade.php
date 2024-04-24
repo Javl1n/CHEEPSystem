@@ -21,14 +21,19 @@ $uploadPost = function () {
     $this->validate([
         'contentInput' => 'required',
     ]);
+    
+
+    if($this->photo) {
+        $this->validate([
+            'photo' => 'image',
+        ]);
+    }
+
     $post = auth()->user()->posts()->create([
         'content' => $this->contentInput
     ]);
 
-    if($this->image) {
-        $this->validate([
-            'photo' => 'image',
-        ]);
+    if($this->photo) {
         $post->file()->create([
             'url' => $this->photo->store('images/posts')
         ]);
@@ -40,14 +45,14 @@ $uploadPost = function () {
 
 ?>
 
-<div class="bg-white overflow-hidden shadow-sm sm:rounded-lg" x-data="{open: true}">
+<div class="bg-white mb-6 overflow-hidden shadow-sm sm:rounded-lg" x-data="{open: true}">
     <div class="text-gray-900">
         <div class="p-6 flex justify-between border-b shadow-sm">
             <h1 class="font-bold">
                 {{ __("Add Post") }}
             </h1>
-            <span class="text-sm font-bold cursor-pointer" x-on:click="open =! open" x-text="open ? 'close' : 'open'">
-                
+            <span class="text-sm font-bold cursor-pointer" x-on:click="open =! open">
+                <x-bootstrap-icons icon="x" class="transition linear h-5" x-bind:class="open ? '' : 'rotate-45'" />
             </span>
         </div>
 

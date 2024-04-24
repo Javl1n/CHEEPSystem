@@ -4,12 +4,16 @@ use function Livewire\Volt\{state};
 use Carbon\CarbonInterface;
 
 state([
-    'post'
+    'post',
+    'loop'
 ]);
 
 ?>
 
-<div class="bg-white mt-6 overflow-hidden shadow-sm sm:rounded-lg">
+<div @class([
+    "bg-white overflow-hidden shadow-sm sm:rounded-lg",
+    "mt-6" => !$loop->first
+    ])>
     <div class="px-5 pt-4 pb-1 text-gray-900">
         <div class="flex gap-2">
             <x-profile-picture :src="asset($post->user->profile->url)" class="h-10 shadow" />

@@ -6,17 +6,22 @@ use App\Http\Controllers\MessageController;
 
 Route::permanentRedirect('/', 'posts');
 
-Route::view('dashboard', 'dashboard')
-    ->middleware(['auth', 'verified', 'admin'])
-    ->name('dashboard');
+
 
 Volt::route('posts', 'pages.post.index')
     ->middleware(['auth', 'verified', 'user-verified'])
     ->name('posts.index');
 
-Volt::route('users', 'pages.auth.users.index')
-    ->middleware(['auth', 'verified', 'admin'])
-    ->name('users.index');
+Route::middleware(['auth', 'verified', 'admin'])->group(function () {
+    Volt::route('users', 'pages.admin.users.index')
+        ->name('users.index');
+
+    Volt::route('admin/evaluations', 'pages.admin.evaluations.index')
+        ->name('admin.evaluations.index');
+
+    Route::view('dashboard', 'dashboard')
+        ->name('dashboard');
+});
 
 Volt::route('messages/{user}', 'pages.messages.show')
     ->middleware(['auth', 'verified', 'user-verified'])
