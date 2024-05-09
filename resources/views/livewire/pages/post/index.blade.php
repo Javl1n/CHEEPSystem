@@ -19,46 +19,44 @@ state([
         </h2>
     </x-slot>
 
-    <div class="grid lg:grid-cols-6 gap-8 py-12 px-6 lg:px-8">
-        <div class="col-start-2 col-span-4">
-            @unlessrole('Student')
-                @livewire('post.create')
-            @endrole
-            
-            @foreach ($posts->filter(function ($value, $key) {
-                if($value->verified) {
-                    return false;
-                }
+    <div class="max-w-6xl mx-auto py-12 px-6 lg:px-8">
+        @unlessrole('Student')
+            @livewire('post.create')
+        @endrole
+        
+        @foreach ($posts->filter(function ($value, $key) {
+            if($value->verified) {
+                return false;
+            }
 
-                if(auth()->user()->role->id === 1) {
-                    return true;
-                }
-
-                if($value->user->id !== auth()->user()->id) {
-                    return false;
-                }
-
+            if(auth()->user()->role->id === 1) {
                 return true;
-            }) as $post)
-                @if ($loop->first)
-                    <div class="mb-6 border-b font-bold text-gray-500 text-center">
-                        Unverified Posts
-                    </div>
-                @endif
+            }
+
+            if($value->user->id !== auth()->user()->id) {
+                return false;
+            }
+
+            return true;
+        }) as $post)
+            @if ($loop->first)
+                <div class="mb-6 border-b font-bold text-gray-500 text-center">
+                    Unverified Posts
+                </div>
+            @endif
+            @livewire('post.show', ['post' => $post, 'loop' => $loop])
+
+            @if ($loop->last)
+                <div class="my-6 border-b font-bold text-gray-500 text-center">
+                    Verified Posts
+                </div>
+            @endif
+        @endforeach
+
+        <div class="mt-6">
+            @foreach ($posts->where('verified', true) as $post)
                 @livewire('post.show', ['post' => $post, 'loop' => $loop])
-
-                @if ($loop->last)
-                    <div class="my-6 border-b font-bold text-gray-500 text-center">
-                        Verified Posts
-                    </div>
-                @endif
             @endforeach
-
-            <div class="mt-6">
-                @foreach ($posts->where('verified', true) as $post)
-                    @livewire('post.show', ['post' => $post, 'loop' => $loop])
-                @endforeach
-            </div>
         </div>
     </div>
 </div>
