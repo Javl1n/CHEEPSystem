@@ -13,14 +13,14 @@ return new class extends Migration
     {
         Schema::create('evaluation_takens', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('subject_id')->constrained();
             $table->foreignId('student_id')->constrained(
                 table: 'users',
-                // indexName: 'message_receiver_id'
             );
             $table->foreignId('teacher_id')->constrained(
                 table: 'users',
-                // indexName: 'message_receiver_id'
             );
+            $table->boolean('answered')->nullable()->default(false);
             $table->timestamps();
         });
     }

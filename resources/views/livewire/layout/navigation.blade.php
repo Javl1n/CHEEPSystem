@@ -49,6 +49,10 @@ $logout = function (Logout $logout) {
                         <x-nav-link :href="route('admin.evaluations.index')" :active="request()->routeIs('admin.evaluations.*')" wire:navigate>
                             {{ __('Evaluations') }}
                         </x-nav-link>
+
+                        <x-nav-link :href="route('subjects.index')" :active="request()->routeIs('subjects.*')" wire:navigate>
+                            {{ __('Subjects') }}
+                        </x-nav-link>
                     @endrole
 
                     @role('student') 
@@ -57,6 +61,12 @@ $logout = function (Logout $logout) {
                                 {{ __('Evaluations') }}
                             </x-nav-link>
                         @endfeature
+                    @endrole
+
+                    @role('teacher') 
+                        <x-nav-link :href="route('teacher.evaluations.index')" :active="request()->routeIs('teacher.evaluations.*')" wire:navigate>
+                            {{ __('Evaluations') }}
+                        </x-nav-link>
                     @endrole
                 </div>
             </div>

@@ -42,4 +42,14 @@ class EvaluationTaken extends Model
     {
         return $this->hasMany(EvaluationScore::class, 'evaluation_id');
     }
+
+    /**
+     * Get the subject that owns the EvaluationTaken
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function subject(): BelongsTo
+    {
+        return $this->belongsTo(Subject::class);
+    }
 }

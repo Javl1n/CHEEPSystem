@@ -18,13 +18,11 @@ $verifyUser = function () {
     <div class="p-6 text-gray-900">
         <div class="flex gap-2">
             <x-profile-picture class="h-12 shadow" src="{{ asset($user->profile->url) }}" />
-            {{-- <img class="h-12 w-12 aspect-square rounded-full shadow" src="{{ asset($user->profile->url) }}" alt=""> --}}
             <div class="flex-1">
                 <div class="flex justify-between gap-2">
                     <h1 class="text-lg">{{ $user->name }}</h1>
-                    <span class="py-1 px-2 text-xs text-white font-bold my-auto bg-green-500 rounded-full">{{ $user->role->name }}</span>
                 </div>
-                <p class="text-sm leading-3">{{ $user->email }}</p>
+                <p class="text-sm leading-3"> {{ $user->role->name }} <span>&#x2022</span> {{ $user->email }}</p>
             </div>
         </div>
         <div class="mt-4">
@@ -33,7 +31,7 @@ $verifyUser = function () {
                     {{ $user->verification->verified ? 'Verified' : 'Unverified' }}
                 </span>
             </h1>
-            <div x-data="{open: false}">
+            <div x-data="{open: false}" class="border border-gray-400 px-4 py-2 mt-2 rounded">
                 <div class="flex justify-between">
                     <h1 class="font-bold">Verification:</h1>
                     <span x-on:click="open = !open" x-text="open ? 'collapse' : 'view'">open</span>

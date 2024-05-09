@@ -51,32 +51,57 @@ class DatabaseSeeder extends Seeder
             'title' => 'Voting',
         ]);
 
-        // EvaluationQuestion::factory(15)->create();
+        $teacherUser = $teacher->users()->create([
+            'name' => 'Frank Leimbergh D. Armodia',
+            'email' => 'farmodia@gmail.com',
+            'password' => Hash::make('admin123'),
+        ]);
 
-        User::factory(15)
+        $teacherUser->verification()->create([
+            'verified' => true,
+        ])->file()->create([
+            'url' => 'storage/images/bg-school.jpg',
+        ]);
+        
+        $teacherUser->profile()->create([
+            'url' => 'storage/images/empty_profile.png'
+        ]);
+
+        $studentUser = $student->users()->create([
+            'name' => 'Kryz John F. Luceno',
+            'email' => 'kryz@gmail.com',
+            'password' => Hash::make('admin123'),
+        ]);
+
+        $studentUser->verification()->create([
+            'verified' => true,
+        ])->file()->create([
+            'url' => 'storage/images/bg-school.jpg',
+            
+        ]);
+
+        $studentUser->profile()->create([
+            'url' => 'storage/images/empty_profile.png'
+        ]);
+
+        foreach([$student, $teacher] as $role) {
+            User::factory(15)
             ->create([
-                'role_id' => 2
+                'role_id' => $role->id,
             ])->map(function ($user) {
-                $user->verification()->create()->file()->create([
-                    'url' => 'storage/images/bg-school.jpg'
+                $user->verification()->create([
+                    'verified' => true,
+                ])->file()->create([
+                    'url' => 'storage/images/bg-school.jpg',
                 ]);
                 $user->profile()->create([
                     'url' => 'storage/images/empty_profile.png'
                 ]);
             });
+        }
 
-        // foreach([$student, $teacher] as $role) {
-        //     User::factory(15)
-        //     ->create([
-        //         'role_id' => $role->id
-        //     ])->map(function ($user) {
-        //         $user->verification()->create()->file()->create([
-        //             'url' => 'storage/images/bg-school.jpg'
-        //         ]);
-        //         $user->profile()->create([
-        //             'url' => 'storage/images/empty_profile.png'
-        //         ]);
-        //     });
-        // }
+        $this->call([
+            EvaluationSeeder::class,
+        ]);   
     }
 }

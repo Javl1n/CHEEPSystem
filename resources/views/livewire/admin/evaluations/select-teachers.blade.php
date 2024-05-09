@@ -35,7 +35,8 @@ $score = computed(function($teacher) {
     <h1 class="text-lg font-bold">{{ __("Verified Teachers") }}</h1>
     <div class="h-[calc(100vh-300px)] overflow-auto mt-4 no-scrollbar">
         @foreach ($teachers as $teacher)
-            <div 
+            <a
+            href="{{ route('admin.evaluations.show', ['teacher' => $teacher]) }}" 
             style="
                 background-image: linear-gradient(to right, #fee2e2 {{ $this->score($teacher) }}%, white 0%);
                 border-width: 1px;
@@ -49,7 +50,8 @@ $score = computed(function($teacher) {
                     <h1 class="font-bold">{{ $teacher->name }}</h1>
                     <h2>Score: {{ $this->score($teacher) }}%</h2>
                 </div>
-            </div>
+            </a
+            href="{{ route('admin.evaluations.show', ['teacher' => $teacher]) }}">
         @endforeach
     </div>
 </div>

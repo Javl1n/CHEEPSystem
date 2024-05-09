@@ -1,17 +1,18 @@
 <?php
 
 use function Livewire\Volt\{state, mount, layout};
+
+use App\Models\EvaluationTaken;
 use App\Models\User;
+
 use Illuminate\Database\Eloquent\Builder;
 
 layout('layouts.app');
 
 state([
-    'teachers' => User::where('role_id', 2)->whereHas('verification', function (Builder $query) {
-        $query->where('verified', true);
-    })->whereDoesntHave('teacherEvaluations', function (Builder $query) {
-        $query->where('student_id', auth()->user()->id);
-    })->get(),
+    'teachers' => EvaluationTaken::where('student_id', auth()->user()->id)
+                        ->where('answered', false)
+                        ->get()->pluck('teacher'),
     'search' => "",
     'teacher',
 ]);
@@ -33,7 +34,7 @@ $searchTeacher = function () {
 };
 
 $selectTeacher = function ($teacher) {
-    $this->teacher = User::where("id", $teacher)->first();
+    $this->teacher = EvaluationTaken::where("teacher_id", $teacher)->first();
     $this->redirect(route('student.evaluations.show', ['teacher' => $this->teacher]), navigate: true);
 };
 

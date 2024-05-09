@@ -17,7 +17,8 @@ class SubjectFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'code' => strtoupper(fake()->randomLetter() . fake()->randomLetter()) . ' ' . fake()->randomDigitNotNull() . fake()->randomDigitNotNull() . fake()->randomDigitNotNull(),
+            'name' => fake()->sentence(),
         ];
     }
 }

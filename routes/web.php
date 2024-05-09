@@ -20,6 +20,12 @@ Route::middleware(['auth', 'verified', 'student'])->group(function () {
         ->name('student.evaluations.show');
 }); 
 
+
+Route::middleware(['auth', 'verified'])->group(function () {
+    Volt::route('teacher/evaluations/', 'pages.teacher.evaluations.index')
+        ->name('teacher.evaluations.index');
+}); 
+
 Route::middleware(['auth', 'verified', 'admin'])->group(function () {
     Volt::route('users', 'pages.admin.users.index')
         ->name('users.index');
@@ -27,8 +33,14 @@ Route::middleware(['auth', 'verified', 'admin'])->group(function () {
     Volt::route('admin/evaluations', 'pages.admin.evaluations.index')
         ->name('admin.evaluations.index');
 
+    Volt::route('admin/evaluations/{teacher}', 'pages.admin.evaluations.show')
+        ->name('admin.evaluations.show');
+
     Route::view('dashboard', 'dashboard')
         ->name('dashboard');
+    
+    Volt::route('subjects', 'pages.admin.subjects.index')
+        ->name('subjects.index');
 });
 
 Volt::route('messages/{user}', 'pages.messages.show')
