@@ -91,7 +91,7 @@ $showSubject = function ($subjectId) {
                 wire:key='subject-{{ $subject->first()->id }}' 
                 wire:click='showSubject({{ $subject->first()->id }})'
                 @class([
-                    "inline-block p-2 ms-1 rounded sm:rounded-lg  text-sm font-bold transition linear",
+                    "inline-block p-2 mb-1 rounded sm:rounded-lg  text-sm font-bold transition linear",
                     "bg-red-500 text-white shadow-sm" => $shownSubject === $subject->first()->id,
                     "bg-white text-black shadow-sm cursor-pointer" => $shownSubject !== $subject->first()->id,
                 ])>

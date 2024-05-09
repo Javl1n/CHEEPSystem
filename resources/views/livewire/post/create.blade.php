@@ -30,7 +30,8 @@ $uploadPost = function () {
     }
 
     $post = auth()->user()->posts()->create([
-        'content' => $this->contentInput
+        'content' => $this->contentInput,
+        'verified' => auth()->user()->role->id === 1 ? true : false
     ]);
 
     if($this->photo) {

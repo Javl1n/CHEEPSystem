@@ -7,7 +7,7 @@ use App\Models\Post;
 layout('layouts.app');
 
 state([
-    'posts' => Post::latest()->get(),
+    'posts' => Post::latest('updated_at')->get(),
 ]);
 
 ?>
@@ -25,16 +25,40 @@ state([
                 @livewire('post.create')
             @endrole
             
-            @foreach ($posts as $post)
+            @foreach ($posts->filter(function ($value, $key) {
+                if($value->verified) {
+                    return false;
+                }
+
+                if(auth()->user()->role->id === 1) {
+                    return true;
+                }
+
+                if($value->user->id !== auth()->user()->id) {
+                    return false;
+                }
+
+                return true;
+            }) as $post)
+                @if ($loop->first)
+                    <div class="mb-6 border-b font-bold text-gray-500 text-center">
+                        Unverified Posts
+                    </div>
+                @endif
                 @livewire('post.show', ['post' => $post, 'loop' => $loop])
+
+                @if ($loop->last)
+                    <div class="my-6 border-b font-bold text-gray-500 text-center">
+                        Verified Posts
+                    </div>
+                @endif
             @endforeach
-        </div>
-        {{-- <div class="col-span-1">
-            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                <div class="p-6 text-gray-900">
-                    {{ __("Profile") }}
-                </div>
+
+            <div class="mt-6">
+                @foreach ($posts->where('verified', true) as $post)
+                    @livewire('post.show', ['post' => $post, 'loop' => $loop])
+                @endforeach
             </div>
-        </div> --}}
+        </div>
     </div>
 </div>

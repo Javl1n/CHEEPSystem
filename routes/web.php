@@ -6,57 +6,61 @@ use App\Http\Controllers\MessageController;
 
 Route::permanentRedirect('/', 'posts');
 
+Route::middleware(['auth', 'verified', 'user-verified', 'unrestricted'])->group(function() {
+    // Student
+    Route::middleware(['student'])->group(function () {
+        Volt::route('student/evaluations', 'pages.student.evaluations.index')
+            ->name('student.evaluations.index');
 
+        Volt::route('student/evaluations/{teacher}', 'pages.student.evaluations.show')
+            ->name('student.evaluations.show');
+    }); 
 
-Volt::route('posts', 'pages.post.index')
-    ->middleware(['auth', 'verified', 'user-verified'])
-    ->name('posts.index');
+    // Teacher
+    Route::middleware(['teacher'])->group(function () {
+        Volt::route('teacher/evaluations/', 'pages.teacher.evaluations.index')
+            ->name('teacher.evaluations.index');
+    }); 
 
-Route::middleware(['auth', 'verified', 'student'])->group(function () {
-    Volt::route('student/evaluations', 'pages.student.evaluations.index')
-        ->name('student.evaluations.index');
+    // Admin
+    Route::middleware(['admin'])->group(function () {
+        Volt::route('users', 'pages.admin.users.index')
+            ->name('users.index');
 
-    Volt::route('student/evaluations/{teacher}', 'pages.student.evaluations.show')
-        ->name('student.evaluations.show');
-}); 
+        Volt::route('admin/evaluations', 'pages.admin.evaluations.index')
+            ->name('admin.evaluations.index');
 
+        Volt::route('admin/evaluations/{teacher}', 'pages.admin.evaluations.show')
+            ->name('admin.evaluations.show');
+        
+        Volt::route('subjects', 'pages.admin.subjects.index')
+            ->name('subjects.index');
 
-Route::middleware(['auth', 'verified'])->group(function () {
-    Volt::route('teacher/evaluations/', 'pages.teacher.evaluations.index')
-        ->name('teacher.evaluations.index');
-}); 
+        Volt::route('admin/polls/index', 'pages.admin.polls.index')
+            ->name('admin.polls.index');
+    });
 
-Route::middleware(['auth', 'verified', 'admin'])->group(function () {
-    Volt::route('users', 'pages.admin.users.index')
-        ->name('users.index');
+    // Posts
+    Volt::route('posts', 'pages.post.index')->name('posts.index');
 
-    Volt::route('admin/evaluations', 'pages.admin.evaluations.index')
-        ->name('admin.evaluations.index');
+    // Messages
+    Volt::route('messages/{user}', 'pages.messages.show')->name('messages.show');
+    Route::get('messages', [MessageController::class, 'index'])->name('messages.index');
 
-    Volt::route('admin/evaluations/{teacher}', 'pages.admin.evaluations.show')
-        ->name('admin.evaluations.show');
-
-    Route::view('dashboard', 'dashboard')
-        ->name('dashboard');
-    
-    Volt::route('subjects', 'pages.admin.subjects.index')
-        ->name('subjects.index');
+    // Profile
+    Route::view('profile', 'profile')->name('profile');
 });
 
-Volt::route('messages/{user}', 'pages.messages.show')
-    ->middleware(['auth', 'verified', 'user-verified'])
-    ->name('messages.show');
 
-Route::get('messages', [MessageController::class, 'index'])
-    ->middleware(['auth', 'verified', 'user-verified'])
-    ->name('messages.index');
-
+// Redirects
 Route::view('unverified', 'unverified')
     ->middleware(['auth', 'user-unverified'])
     ->name('unverified');
 
-Route::view('profile', 'profile')
-    ->middleware(['auth', 'verified'])
-    ->name('profile');
+Route::view('restricted', 'restricted')
+    ->middleware(['auth', 'restricted'])
+    ->name('restricted');
+
+
 
 require __DIR__.'/auth.php';

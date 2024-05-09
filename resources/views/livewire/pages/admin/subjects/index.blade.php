@@ -26,9 +26,6 @@ state([
                     <div class="p-6 text-gray-900 text-xl font-bold">
                         {{ __("Subjects: ") }}
                     </div>
-                    <div class="mx-6 my-auto">
-                        <x-text-input wire:model="search" wire:keyup="searchTeacher" placeholder="Search for Students..." class="block mt-1 w-full" type="text" name="name"/>
-                    </div>
                 </div>
                 <div class="px-8 mt-2 mb-6">
                     @if($subjects->count() > 0)
