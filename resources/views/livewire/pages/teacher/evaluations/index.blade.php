@@ -1,14 +1,26 @@
 <?php
 
-use function Livewire\Volt\{state, layout, title};
+use function Livewire\Volt\{state, layout, title, mount};
 
 use App\Models\EvaluationTaken;
 
 layout('layouts.app');
 
 state([
-    'students' => EvaluationTaken::where('teacher_id', auth()->user()->id)->get()->pluck('student')
+    'evaluations' => EvaluationTaken::where('teacher_id', auth()->user()->id)->with([
+        'student' => [
+            'profile'
+        ],
+        'subject'
+    ])->get(),
+    'studentCount',
+    'subjects',
 ]);
+
+mount(function () {
+    $this->studentCount = $this->evaluations->pluck('student')->count();
+    $this->subjects = $this->evaluations->pluck('subject')->groupBy('code');
+});
 
 ?>
 
@@ -26,24 +38,38 @@ state([
                     <div class="p-6 text-gray-900 text-xl font-bold">
                         {{ __("Your Students: ") }}
                     </div>
-                    <div class="mx-6 my-auto">
-                        <x-text-input wire:model="search" wire:keyup="searchTeacher" placeholder="Search for Students..." class="block mt-1 w-full" type="text" name="name"/>
-                    </div>
                 </div>
                 <div class="px-8 mt-2 mb-6">
-                    @if($students->count() > 0)
+                    @if($studentCount > 0)
                         <div class="grid grid-cols-5 gap-4">
-                            @foreach ($students as $student)
-                                <div @class([
-                                        "border shadow rounded-lg hover:bg-gray-100 cursor-pointer py-4 transition",
-                                    ])
-                                    wire:click="selectTeacher({{ $student->id }})">
-                                    <div>
-                                        <x-profile-picture :src="asset($student->profile->url)" class="h-40 mx-auto" />
-                                    </div>
-                                    <div class="text-center mt-4 text-lg font-bold">{{ $student->name }}</div>
+                            @foreach ($subjects as $subject)
+                                <div class="col-span-5 border-b text-lg font-bold">
+                                    {{ $subject->first()->code }} - {{ $subject->first()->name }}:
                                 </div>
+                                @foreach ($evaluations->where('subject_id', $subject->first()->id)->pluck('student') as $student)
+                                    <div class="">
+                                        @php
+                                            $evaluation = $this->evaluations->where('student_id', $student->id)->first();
+                                        @endphp
+                                        <div @class([
+                                                "shadow-md border rounded-lg py-4",
+                                                "hover:bg-gray-100 cursor-pointer transition shadow-red-500/50" => ! $evaluation->answered,
+                                                "shadow-green-400/50" => $evaluation->answered
+                                            ])
+                                            @if ( ! $evaluation->answered)
+                                                wire:click="$dispatch('open-modal', 'edit-evaluation-{{ $evaluation->id }}')"
+                                            @endif
+                                            >
+                                            <div>
+                                                <x-profile-picture :src="asset($student->profile->url)" class="h-40 mx-auto" />
+                                            </div>
+                                            <div class="text-center mt-4 text-lg font-bold">{{ $student->name }}</div>
+                                        </div>
+                                        @livewire('teacher.evaluations.edit', ['evaluation' => $evaluation])
+                                    </div>
+                                @endforeach
                             @endforeach
+                            
                         </div>
                     @else
                         <h1 class="text-center font-bold text-gray-500 w-full">You have no Students</h1>

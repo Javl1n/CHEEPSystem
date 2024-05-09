@@ -20,7 +20,9 @@ class EvaluationSeeder extends Seeder
         $questions = EvaluationQuestion::factory(15)->create();
 
         $teachers = User::where('role_id', 2)->get();
-        $students = User::where('role_id', 3)->get();
+        $students = User::where('role_id', 3)->get()->reject(function ($value, int $key) {
+            return $value->email === "kryz@gmail.com";
+        });
 
         Subject::factory(15)->create();
 

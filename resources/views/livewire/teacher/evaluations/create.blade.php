@@ -54,7 +54,7 @@ $save = function () {
 
 ?>
 
-<div x-data="{ open: true }" class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
+<div x-data="{ open: false }" class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
     <div class="flex justify-between px-6 py-4">
         <div class=" text-gray-900 text-xl font-bold">
             {{ __("Add Students") }}
