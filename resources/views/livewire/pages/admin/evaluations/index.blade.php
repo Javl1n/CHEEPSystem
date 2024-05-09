@@ -17,7 +17,10 @@ boot(function () {
     $this->evaluation = Feature::where('id', 1)->first();
 });
 
-$toggleEvaluation = fn () => $this->evaluation->update(['enabled' => !$this->evaluation->enabled]);
+$toggleEvaluation = function () {
+    $this->evaluation->update(['enabled' => !$this->evaluation->enabled]);
+    $this->redirect(request()->header('Referer'), navigate: true);
+};
 
 ?>
 
@@ -51,9 +54,11 @@ $toggleEvaluation = fn () => $this->evaluation->update(['enabled' => !$this->eva
             </div>
         </div>
         <div class="col-span-7 h-[calc(100vh-64px-64px)] py-12 pe-8 overflow-auto">
-            @livewire('admin.questions.create')
+            @if(!$evaluation->enabled)
+                @livewire('admin.questions.create')
+            @endif
             @foreach ($questions as $question)
-                @livewire('admin.questions.index', ['question' => $question, 'loop' => $loop])
+                @livewire('admin.questions.index', ['question' => $question, 'loop' => $loop, 'evaluation' => $evaluation->enabled], key('question-' . $question->id))
             @endforeach
         </div>
     </div>

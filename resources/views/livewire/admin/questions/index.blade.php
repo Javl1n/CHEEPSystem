@@ -5,6 +5,7 @@ use function Livewire\Volt\{state, on};
 state([
     'question',
     'loop',
+    'evaluation',
     'viewState' => 'show'
 ]);
 
@@ -21,7 +22,7 @@ on([
         "mt-6" => !$loop->first
     ])>
         @if ($viewState === "show")   
-            @livewire('admin.questions.show', ['question'=> $question])
+            @livewire('admin.questions.show', ['question'=> $question, 'evaluation' => $evaluation])
         @elseif($viewState === "edit")
             @livewire('admin.questions.edit', ['question'=> $question])
         @endif
