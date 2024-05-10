@@ -42,6 +42,7 @@ $save = function () {
             ]);
         }
     }
+    ddd($poll->options->pluck('id'));
 
     $this->redirect(request()->header('Referer'), navigate: true);
 };

@@ -11,7 +11,7 @@ state([
 
 $percentage = computed(function (PollOption $option) {
     if ($this->totalVote > 0) {
-        return $option->votes->count() / $this->totalVote;
+        return round($option->votes->count() / $this->totalVote * 100, 2);
     }
     return 0;
 });
