@@ -140,4 +140,14 @@ class User extends Authenticatable
     {
         return $this->hasMany(EvaluationTaken::class, 'student_id');
     }
+
+    /**
+     * Get all of the studentVote for the User
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function studentVotes(): HasMany
+    {
+        return $this->hasMany(PollVote::class, 'user_id');
+    }
 }

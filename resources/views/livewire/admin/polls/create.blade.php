@@ -2,10 +2,12 @@
 
 use function Livewire\Volt\{state, mount};
 
+use App\Models\Poll;
+
 state([
-    'titleInput',
-    'optionCount' => 1,
-    'options' => collect([0 => ""])
+    'title',
+    'optionCount' => 2,
+    'options' => collect([0 => ""], [1 => ""])
 ]);
 
 $addOption = function() {
@@ -22,12 +24,31 @@ $removeOption = function ($number) {
 };
 
 $save = function () {
-    ddd($this->options);
+    $this->validate([
+        'title' => 'required',
+        // 'options.*' => 'required'
+    ]);
+
+    if (!empty($this->options)) {
+        $poll = Poll::create([
+            'description' => $this->title
+        ]);
+    }
+
+    foreach($this->options as $option) {
+        if(!empty($option)) {
+            $poll->options()->create([
+                'description' => $option,
+            ]);
+        }
+    }
+
+    $this->redirect(request()->header('Referer'), navigate: true);
 };
 
 ?>
 
-<div class="bg-white mb-6 overflow-hidden shadow-sm sm:rounded-lg" x-data="{open: true}">
+<div class="bg-white mb-6 overflow-hidden shadow-sm sm:rounded-lg" x-data="{open: true }">
     <div class="text-gray-900">
         <div class="p-6 flex justify-between border-b shadow-sm">
             <h1 class="font-bold">
@@ -44,28 +65,28 @@ $save = function () {
                 <textarea
                     class="resize-none h-10 w-full p-0 text-lg rounded border-transparent focus:border-transparent overflow-hidden focus:ring-0"
                     x-data="{
-                        resize: () => { $el.style.height = '10px'; $el.style.height = $el.scrollHeight + 'px' }
+                        resize: () => { $el.style.height = '20px'; $el.style.height = $el.scrollHeight + 'px' }
                     }"
                     x-init="resize()"
                     x-on:input="resize()"
-                    wire:model='titleInput'
+                    wire:model='title'
                     placeholder="What's the poll all about?"
                     x-transition
                     required
                 ></textarea>
-                <x-input-error :messages="$errors->get('titleInput')" class="" />
             </div>
+            <x-input-error :messages="$errors->get('title')" class="" />
             <h1 class="font-bold mt-6">Options: </h1>
             @for ($count = 1; $count <= $optionCount; $count++)
                 <div class="flex mt-4">
                     <x-text-input wire:model="options.{{ $count - 1 }}" class="block  w-full" placeholder="Option {{ $count }}" required/>
-
-                    @if($optionCount > 1)
-                        <div wire:click="removeOption({{ $count }})" class=" h-10 w-10 flex mx-2 hover:bg-gray-50 hover:fill-red-500 cursor-pointer rounded-full">
+                    @if($optionCount > 2)
+                        <div wire:click="removeOption({{ $count }})" class="h-10 w-10 flex mx-2 hover:bg-gray-50 hover:fill-red-500 cursor-pointer rounded-full">
                             <x-bootstrap-icons icon="trash-filled" class="mx-auto my-auto transition linear h-6" />
                         </div>
                     @endif
                 </div>
+                <x-input-error :messages="$errors->get('options.{{ $count - 1 }}')" class="" />
             @endfor
             <div x-on:click="$wire.addOption" class="mt-4 border-2 rounded-md flex justify-center py-2 hover:bg-gray-50 cursor-pointer transition">
                 <div class="rounded-full py-2 fill-black">
@@ -76,7 +97,7 @@ $save = function () {
             
             <div class="flex items-center justify-end mt-4">
                 <x-primary-button wire:click.prevent='save' class="ms-3">
-                    {{ __('Post') }}
+                    {{ __('Save') }}
                 </x-primary-button>
             </div>
         </div>

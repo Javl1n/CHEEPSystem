@@ -34,12 +34,18 @@ $percentage = computed(function (int $question, int $count) {
     $answersOfQuestion = $this->answers->where('question_id', $question);
     $totalAnswers = $answersOfQuestion->count();
     $whoAnsweredCount = $answersOfQuestion->where('score', $count)->count();
-    return round($whoAnsweredCount / $totalAnswers * 100, 2);
+    if($totalAnswers > 0) {
+        return round($whoAnsweredCount / $totalAnswers * 100, 2);
+    }
+    return 0;
 });
 
 $totalPercentage = computed(function () {
     $totalAnswers = $this->answers->pluck('score');
-    return round($totalAnswers->sum() / ($totalAnswers->count() * 5) * 100, 2);
+    if($totalAnswers->count() > 0) {
+        return round($totalAnswers->sum() / ($totalAnswers->count() * 5) * 100, 2);
+    }
+    return 0;
 });
 
 $showSubject = function ($subjectId) {

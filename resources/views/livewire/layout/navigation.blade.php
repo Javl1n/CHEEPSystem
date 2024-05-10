@@ -8,6 +8,8 @@ $logout = function (Logout $logout) {
     $this->redirect('/', navigate: true);
 };
 
+
+
 ?>
 
 <nav x-data="{ open: false }" class="bg-white border-b border-gray-100">
@@ -59,6 +61,11 @@ $logout = function (Logout $logout) {
                         @feature('Evaluation')
                             <x-nav-link :href="route('student.evaluations.index')" :active="request()->routeIs('student.evaluations.*')" wire:navigate>
                                 {{ __('Evaluations') }}
+                            </x-nav-link>
+                        @endfeature
+                        @feature('Voting')
+                            <x-nav-link :href="route('student.polls.index')" :active="request()->routeIs('student.polls.*')" wire:navigate>
+                                {{ __('Polls') }}
                             </x-nav-link>
                         @endfeature
                     @endrole

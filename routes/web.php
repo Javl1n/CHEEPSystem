@@ -14,6 +14,9 @@ Route::middleware(['auth', 'verified', 'user-verified', 'unrestricted'])->group(
 
         Volt::route('student/evaluations/{teacher}', 'pages.student.evaluations.show')
             ->name('student.evaluations.show');
+            
+        Volt::route('student/polls', 'pages.student.polls.index')
+            ->name('student.polls.index');
     }); 
 
     // Teacher
