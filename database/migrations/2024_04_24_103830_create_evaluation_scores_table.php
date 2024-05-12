@@ -16,10 +16,10 @@ return new class extends Migration
             $table->integer('score');
             $table->foreignId('question_id')->constrained(
                 table: 'evaluation_questions', 
-            );
+            )->cascadeOnDelete();
             $table->foreignId('evaluation_id')->constrained(
                 table: 'evaluation_takens',
-            );
+            )->cascadeOnDelete();
             $table->timestamps();
         });
     }

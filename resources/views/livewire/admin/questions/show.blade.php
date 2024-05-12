@@ -9,12 +9,13 @@ state([
 
 $editMode = fn () => $this->dispatch("editMode-" . $this->question->id);
 
-$delete = function () {
-    // $this->dispatch("stateless-" . $this->question->id);
-    $this->question->delete();
-    $this->redirect('/admin/evaluations', navigate: true);
-    // $this->dispatch('refreshList');
-};
+    $delete = function () {
+        // $this->dispatch("stateless-" . $this->question->id);
+        $this->question->scores()->delete();
+        $this->question->delete();
+        $this->redirect('/admin/evaluations', navigate: true);
+        // $this->dispatch('refreshList');
+    };
 ?>
 
 

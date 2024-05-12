@@ -39,12 +39,26 @@ $toggleEvaluation = function () {
         x-on:mouseleave="mouseover = false" 
         wire:click="toggleEvaluation"
         @class([
-            'absolute top-20 right-12 p-2 text-sm rounded w-40 font-bold transition linear',
+            'absolute top-20 right-12 p-2 text-sm rounded w-44 font-bold transition linear uppercase',
             'border border-green-400 text-green-600 hover:bg-green-200' => !$this->evaluation->enabled,
             'bg-green-600 text-white hover:bg-red-500' => $this->evaluation->enabled
         ]) 
         x-text="mouseover ? '{{ $evaluation->enabled ? 'Stop Evaluation' : 'Start Evaluation' }}' : '{{ $evaluation->enabled ? 'Evaluation Ongoing ' : 'Start Evaluation' }}'"> 
     </button>
+    @if (! $evaluation->enabled)
+        <button 
+            x-transition 
+            x-data="{mouseover: false}" 
+            x-on:mouseenter="mouseover = true" 
+            x-on:mouseleave="mouseover = false" 
+            wire:click="$dispatch('open-modal', 'confirm-evaluations-reset')"
+            @class([
+                'absolute top-20 right-60 p-2 text-sm rounded w-44 font-bold transition linear bg-red-500 text-white hover:bg-red-700 uppercase ',
+        ])>
+            Reset Evaluation
+        </button>
+        @livewire('admin.evaluations.reset')
+    @endif
     <div class="grid lg:grid-cols-12 gap-8">
         <div class="col-span-5 py-12 ps-8">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">

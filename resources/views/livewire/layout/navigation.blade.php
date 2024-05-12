@@ -63,11 +63,9 @@ $logout = function (Logout $logout) {
                                 {{ __('Evaluations') }}
                             </x-nav-link>
                         @endfeature
-                        @feature('Voting')
-                            <x-nav-link :href="route('student.polls.index')" :active="request()->routeIs('student.polls.*')" wire:navigate>
-                                {{ __('Polls') }}
-                            </x-nav-link>
-                        @endfeature
+                        <x-nav-link :href="route('student.polls.index')" :active="request()->routeIs('student.polls.*')" wire:navigate>
+                            {{ __('Polls') }}
+                        </x-nav-link>
                     @endrole
 
                     @role('teacher') 

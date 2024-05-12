@@ -31,7 +31,7 @@ $sendMessage = function () {
         ]);
     }
 
-    $this->redirect(route('messages.show', ['user' => $this->receiver->id]), navigate: true);
+    $this->redirect(request()->header('Referer'), navigate: true);
     // $this->content = '';
     // $this->image = '';
 
@@ -40,7 +40,7 @@ $sendMessage = function () {
 
 ?>
 
-<div class="bg-white py-2 px-3 flex gap-2 absolute bottom-1 w-3/4">
+<div class="bg-white pb-2 pt-3 px-3 flex gap-2 absolute bottom-1 w-3/4">
     <div class="flex flex-col justify-end py-2">
         @if(!$this->image)
             <label for="image" class="w-6 h-6 hover:bg-gray-50 cursor-pointer rounded-full transition">

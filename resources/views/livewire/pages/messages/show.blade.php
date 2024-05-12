@@ -25,9 +25,6 @@ mount(function () {
     </x-slot> --}}
     <div class="flex-1 border-t grid grid-cols-4">
         <div class="col-span-1 border-r px-4 flex flex-col h-[calc(100vh-65px)] ">
-            <h2 class="font-extrabold text-2xl my-4 text-gray-800 leading-tight">
-                {{ __('Chats') }}
-            </h2>
             @livewire('messages.navigation', ['users' => $users])
         </div>
         <div class="col-span-3 flex flex-col h-full">
@@ -40,7 +37,6 @@ mount(function () {
             <div class="flex-1">
                 <livewire:messages.content :$user />
             </div>
-            {{-- <livewire:messages.create :receiver="$user" @send="$refresh" /> --}}
             @livewire('messages.create', ['receiver' => $user])
         </div>
     </div>
