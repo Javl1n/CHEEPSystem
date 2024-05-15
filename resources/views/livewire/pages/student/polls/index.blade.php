@@ -35,7 +35,7 @@ mount(function () {
                 @endif
                 @if($enabled)
                     @if ($answered)
-                        <h1 class="text-sm">Below are the current standings</h1>
+                        <h1 class="text-sm">Wait for the voting to end to see the final results</h1>
                     @else
                         <h1 class="text-sm">Vote first to see the current standings</h1>
                     @endif
@@ -48,9 +48,11 @@ mount(function () {
             @if (!$answered && $enabled)
                 @livewire('student.polls.form', ['polls' => $polls])
             @else
-                @foreach ($polls as $poll)
-                    @livewire('student.polls.show', ['poll' => $poll], key('poll-show-' . $poll->id))
-                @endforeach
+                @if(!$enabled)
+                    @foreach ($polls as $poll)
+                        @livewire('student.polls.show', ['poll' => $poll], key('poll-show-' . $poll->id))
+                    @endforeach
+                @endif
             @endif
         </div>
     </div>

@@ -36,7 +36,7 @@ $searchUser = function () {
             <x-text-input wire:model="search" wire:keyup="searchUser" placeholder="Search users..." class="block w-40 py-1 text-sm" type="text" name="name"/>
         </div>
     </div>
-    <div class="flex-1 pb-5 border-t overflow-scroll no-scrollbar">
+    <div class="h-[calc(100vh-64px-52px)] flex-1 pb-5 border-t overflow-scroll no-scrollbar">
         @foreach ($users as $user)
             @if(!$user->verification?->verified && $user->role->id !== 1)
                 @continue

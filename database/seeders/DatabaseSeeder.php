@@ -52,8 +52,8 @@ class DatabaseSeeder extends Seeder
         ]);
 
         $teacherUser = $teacher->users()->create([
-            'name' => 'Frank Leimbergh D. Armodia',
-            'email' => 'farmodia@gmail.com',
+            'name' => 'Ferdinand Cabigting Jr.',
+            'email' => 'sam@gmail.com',
             'password' => Hash::make('admin123'),
         ]);
 

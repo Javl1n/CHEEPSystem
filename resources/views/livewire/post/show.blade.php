@@ -18,6 +18,10 @@ $editMode = fn() => $this->dispatch("editMode-" . $this->post->id);
 
 $delete = function () {
     $this->post->delete();
+    if ($this->post->file) {
+        Storage::delete($this->post->file->url);
+        $this->post->file->delete();
+    }
     $this->redirect(route('posts.index'), navigate: true);
 };
 

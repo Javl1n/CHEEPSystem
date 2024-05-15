@@ -23,7 +23,7 @@ $togglePolling = fn () => $this->pollFeature->update(['enabled' => !$this->pollF
 <div class="overflow-auto">
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Polls') }}
+            {{ __('Voting') }}
         </h2>
     </x-slot>
     <button 
@@ -49,7 +49,7 @@ $togglePolling = fn () => $this->pollFeature->update(['enabled' => !$this->pollF
             @class([
                 'uppercase absolute top-20 right-56 p-2 text-sm rounded w-40 font-bold transition linear bg-red-500 text-white hover:bg-red-700',
         ])>
-            Reset Poll
+            Reset Votes
         </button>
         @livewire('admin.polls.reset')
     @endif

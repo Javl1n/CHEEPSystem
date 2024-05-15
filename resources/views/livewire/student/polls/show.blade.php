@@ -22,7 +22,7 @@ $percentage = computed(function (PollOption $option) {
     <div class="p-6 text-gray-900">
         <h1 class="text-xl font-bold">{{ $poll->description }}</h1>
         <div class="mt-4">
-            @foreach ($poll->options as $option)
+            @foreach ($poll->options->sortByDesc('votes') as $option)
                 <div
                 wire:key='option-{{ $option->id }}'
                 class="px-2 py-2 text-lg font-bold mt-2 flex justify-between"

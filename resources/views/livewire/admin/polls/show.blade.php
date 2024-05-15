@@ -3,6 +3,8 @@
 use function Livewire\Volt\{state, computed, mount};
 
 use App\Models\PollOption;
+use App\Models\PollVote;
+
 
 state([
     'poll',
@@ -17,7 +19,13 @@ $percentage = computed(function (PollOption $option) {
     return 0;
 });
 
-
+$delete = function () {
+    // $this->poll->options->pluck('votes')->collapse()->pluck('id');
+    PollVote::destroy($this->poll->options->pluck('votes')->collapse()->pluck('id')->all());
+    PollOption::destroy($this->poll->options->pluck('id')->all());
+    $this->poll->delete();
+    $this->redirect(request()->header('Referer'), navigate: true);
+}
 
 ?>
 
@@ -32,10 +40,7 @@ $percentage = computed(function (PollOption $option) {
                 </x-slot>
 
                 <x-slot name="content">
-                    <x-dropdown-link x-on:click.prevent="$dispatch.">
-                        {{ __('Edit') }}
-                    </x-dropdown-link>
-                    <x-dropdown-link wire:click.prevent='delete' wire:confirm="Are you sure you want to delete this post?">
+                    <x-dropdown-link wire:click.prevent='delete' wire:confirm="Are you sure you want to delete this poll?">
                         {{ __('Delete') }}
                     </x-dropdown-link>
                 </x-slot>
@@ -43,7 +48,7 @@ $percentage = computed(function (PollOption $option) {
         </div>
         <h1 class="text-xl font-bold">{{ $poll->description }}</h1>
         <div class="mt-4">
-            @foreach ($poll->options as $option)
+            @foreach ($poll->options->sortByDesc('votes') as $option)
                 <div
                 wire:key='option-{{ $option->id }}'
                 class="px-2 py-2 text-lg font-bold mt-2"

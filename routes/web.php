@@ -5,6 +5,7 @@ use Livewire\Volt\Volt;
 use App\Http\Controllers\MessageController;
 
 Route::permanentRedirect('/', 'posts');
+Route::redirect('dashboard', 'posts');
 
 Route::middleware(['auth', 'verified', 'user-verified', 'unrestricted'])->group(function() {
     // Student

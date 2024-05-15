@@ -30,7 +30,7 @@ $remove = function () {
 
 ?>
 
-<x-modal name="edit-evaluation-{{ $this->evaluation->id }}" :show="$errors->isNotEmpty()" focusable>
+<x-modal maxWidth="xl" name="edit-evaluation-{{ $this->evaluation->id }}" :show="$errors->isNotEmpty()" focusable>
     <div wire:submit="deleteUser" class="p-6">
 
         <h2 class="text-lg font-medium text-gray-900">
@@ -45,8 +45,8 @@ $remove = function () {
             <div class="flex flex-col w-20 my-auto">
                 Change to: 
             </div>
-            <div class="flex-1 flex flex-col w-full">
-                <select class="text-sm my-auto py-0 h-8 rounded-lg" wire:model='selectedSubject'>
+            <div class="flex-1 flex flex-col">
+                <select class="text-sm my-auto py-0 h-8 rounded-lg max-w-96" wire:model='selectedSubject'>
                     <option value="">Select Subject</option>
                     @foreach ($subjects as $subject)
                         <option value="{{ $subject->id }}">{{ $subject->code }} - {{ $subject->name }}</option>
