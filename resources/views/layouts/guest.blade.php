@@ -26,8 +26,8 @@
                         </a>
                     </div>
                     <div class="my-auto drop-shadow-xl">
-                        <h1 class="font-extrabold text-7xl text-white ">Notre Dame Siena</h1>
-                        <h1 class="font-extrabold text-7xl text-white">College of Polomolok</h1>
+                        <h1 class="font-extrabold text-7xl text-white ">Notre Dame Siena <br> College of Polomolok</h1>
+                        <h1 class="font-extrabold text-7xl text-white"></h1>
                     </div>
                 </div>
                 <div class="my-auto max-h-screen py-10 px-5 overflow-auto no-scrollbar">

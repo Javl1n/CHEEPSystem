@@ -28,11 +28,11 @@ class DatabaseSeeder extends Seeder
         ]);
 
         $admin->users()->create([
-            'name' => 'John T. Cator',
-            'email' => 'admin@gmail.com',
+            'name' => 'Frank Leimbergh D. Armodia',
+            'email' => 'farmodia@gmail.com',
             'password' => Hash::make('admin123'),
         ])->profile()->create([
-            'url' => 'storage/images/empty_profile.png'
+            'url' => 'storage/images/empty_profile.jpg'
         ]);
         
         $teacher = Role::create([
@@ -64,7 +64,7 @@ class DatabaseSeeder extends Seeder
         ]);
         
         $teacherUser->profile()->create([
-            'url' => 'storage/images/empty_profile.png'
+            'url' => 'storage/images/empty_profile.jpg'
         ]);
 
         $studentUser = $student->users()->create([
@@ -81,7 +81,7 @@ class DatabaseSeeder extends Seeder
         ]);
 
         $studentUser->profile()->create([
-            'url' => 'storage/images/empty_profile.png'
+            'url' => 'storage/images/empty_profile.jpg'
         ]);
 
         foreach([$student, $teacher] as $role) {
@@ -95,7 +95,7 @@ class DatabaseSeeder extends Seeder
                     'url' => 'storage/images/bg-school.jpg',
                 ]);
                 $user->profile()->create([
-                    'url' => 'storage/images/empty_profile.png'
+                    'url' => 'storage/images/empty_profile.jpg'
                 ]);
             });
         }
