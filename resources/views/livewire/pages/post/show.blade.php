@@ -2,22 +2,22 @@
 
 use App\Models\Post;
 use Carbon\CarbonInterface;
-use function Livewire\Volt\{state, layout, mount};
+use function Livewire\Volt\{state, layout, mount, computed};
 
 
 layout('layouts.app');
 
 state([
-    'post'
+    'post',
 ]);
 
 mount(function () {
     $this->post = Post::find($this->post);
-})
+});
 
 ?>
 
-<div class="overflow-auto">
+<div class="overflow-auto pb-8">
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
             {{ __('Forums') }}
@@ -28,7 +28,7 @@ mount(function () {
             "bg-white overflow-hidden shadow-sm sm:rounded-lg mt-6 mx-auto",
             "opacity-50" => ! $post->verified,
         ])>
-            <div class="px-5 pt-4 pb-1 text-gray-900">
+            <div class="px-5 py-4 text-gray-900">
                 <div class="flex justify-between opacity-100">
                     <div class="flex gap-2">
                         <x-profile-picture :src="asset($post->user->profile->url)" class="h-10 shadow" />
@@ -78,14 +78,18 @@ mount(function () {
                 {{-- @if ($this->state === 'show')  --}}
                     <div class="mt-4">
                         <p class="{{ $post->file ? 'text-lg' : 'text-3xl' }}">{{ $post->content }}</p>
+                        
+                    {{-- @elseif ($this->state === 'edit')
+                        @livewire('post.edit', ['post' => $this->post])
+                    @endif --}}
                     </div>
-                {{-- @elseif ($this->state === 'edit')
-                    @livewire('post.edit', ['post' => $this->post])
-                @endif --}}
+                <div class="border rounded mt-4">
+                    @if($post->file)
+                        <img class="mx-auto" src="{{ asset($post->file->url) }}" alt="">
+                    @endif
+                </div>
             </div>
-            @if($post->file)
-                <img class="w-full" src="{{ asset($post->file->url) }}" alt="">
-            @endif
+            
             @livewire('post.index-footer', ['post' => $post])
             @livewire('comments.index', ['post' => $post])
         </div>

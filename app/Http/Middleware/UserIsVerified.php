@@ -16,7 +16,7 @@ class UserIsVerified
     public function handle(Request $request, Closure $next): Response
     {
         if (auth()->user()->role->id !== 1) {
-            if(!auth()->user()->verification->verified) {
+            if(auth()->user()->verification->verified === null) {
                 return redirect('unverified');
             }
         }

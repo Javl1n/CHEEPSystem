@@ -15,9 +15,16 @@ class UserIsUnverified
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if (auth()->user()->role->id !== 1) {
-            if(auth()->user()->verification->verified) {
+        $user = auth()->user();
+
+        // dd($user->verification->verified);
+
+        if ($user->role->id !== 1) {
+            if($user->verification->verified) {
                 return redirect('posts');
+            } 
+            if ($user->verification->verified === 0) {
+                return redirect('deleted');
             }
         }
 

@@ -46,7 +46,7 @@ $register = function () {
     ]);
 
     $user->profile()->create([
-        'url' => 'storage/images/empty_profile.png'
+        'url' => 'storage/images/empty_profile.jpg'
     ]);
 
     $user->verification()->create()->file()->create([
@@ -57,7 +57,7 @@ $register = function () {
 
     Auth::login($user);
 
-    $this->redirect(route('dashboard', absolute: false), navigate: true);
+    $this->redirect(route('unverified', absolute: false), navigate: true);
 };
 
 ?>

@@ -21,7 +21,8 @@ state([
 
     <div class="max-w-7xl mx-auto py-12 px-6 lg:px-8">
         @unlessrole('Admin')
-            @livewire('post.create')
+            <livewire:post.create>
+            {{-- @livewire('post.create') --}}
         @endrole
         
         @foreach ($posts->filter(function ($value, $key) {
@@ -44,7 +45,7 @@ state([
                     Unverified Posts
                 </div>
             @endif
-            @livewire('post.show', ['post' => $post, 'loop' => $loop])
+            <livewire:post.show :$post :$loop :key="'post-' . $post->id" />
 
             @if ($loop->last)
                 <div class="my-6 border-b font-bold text-gray-500 text-center">
@@ -55,7 +56,7 @@ state([
 
         <div class="mt-6">
             @foreach ($posts->where('verified', true) as $post)
-                @livewire('post.show', ['post' => $post, 'loop' => $loop])
+                <livewire:post.show :$post :$loop :key="'post-' . $post->id" />
             @endforeach
         </div>
     </div>

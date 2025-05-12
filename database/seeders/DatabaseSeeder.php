@@ -90,7 +90,7 @@ class DatabaseSeeder extends Seeder
                 'role_id' => $role->id,
             ])->map(function ($user) {
                 $user->verification()->create([
-                    'verified' => true,
+                    'verified' => null,
                 ])->file()->create([
                     'url' => 'storage/images/bg-school.jpg',
                 ]);
@@ -102,7 +102,7 @@ class DatabaseSeeder extends Seeder
 
         $this->call([
             PollSeeder::class,
-            EvaluationSeeder::class,
+            // EvaluationSeeder::class,
         ]);   
     }
 }

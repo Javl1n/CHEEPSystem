@@ -21,7 +21,7 @@
           @endif --}}
           {{-- <x-application-logo class="w-72 "/> --}}
           <div class="text-center text-white">
-               <h1 class="text-7xl font-extrabold">Restricted Account</h1>
+               <h1 class="text-7xl font-extrabold">Verification Rejected</h1>
                <h1 class="text-2xl mt-10">This Account:</h1>
                <div class="inline-flex gap-4 mt-4 bg-white text-gray-800 py-2 px-4 rounded-lg">
                     <img src="{{ asset(auth()->user()->profile->url) }}" class="rounded-full max-h-20 shadow">
@@ -30,12 +30,8 @@
                          <h3 class="text-lg">{{ auth()->user()->email }}</h3>
                     </div>
                </div>
-               <div>
-                    <p class="mt-5 text-lg">Is restricted and will be unrestriced in:</p>
-                    <div class="text-3xl font-bold mt-4">
-                         {{ Illuminate\Support\Carbon::parse(auth()->user()->restricted_until)->diffForHumans(now()) }}
-                    </div>
-                    <p class="mt-5 text-lg">Please come back till then.</p>
+               <div class="max-w-lg mx-auto">
+                    <p class="mt-5 text-lg">has been rejected and will be <span class="font-black bg-white text-red-600 px-1">deleted</span> when you refresh this page, sorry for the inconvenience.</p>
                </div>
 
                @livewire('logout-button')

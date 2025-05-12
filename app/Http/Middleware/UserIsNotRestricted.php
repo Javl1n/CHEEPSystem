@@ -4,6 +4,7 @@ namespace App\Http\Middleware;
 
 use Closure;
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
 use Symfony\Component\HttpFoundation\Response;
 
 class UserIsNotRestricted
@@ -15,8 +16,10 @@ class UserIsNotRestricted
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if (auth()->user()->role->id !== 1) {
-            if(auth()->user()->restricted) {
+        $user = auth()->user();
+
+        if ($user->role->id !== 1) {
+            if($user->restricted_until && Carbon::parse($user->restricted_until)->greaterThan(now())) {
                 return redirect('restricted');
             }
         }

@@ -44,4 +44,9 @@ class Comment extends Model
     {
         return $this->morphOne(File::class, 'fileable');
     }
+
+    public function likes()
+    {
+        return $this->morphMany(Like::class, 'likeable');
+    }
 }

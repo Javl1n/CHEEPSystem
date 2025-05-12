@@ -61,6 +61,10 @@ Route::middleware(['auth', 'verified', 'user-verified', 'unrestricted'])->group(
 Route::view('unverified', 'unverified')
     ->middleware(['auth', 'user-unverified'])
     ->name('unverified');
+    
+Route::view('deleted', 'deleted')
+    ->middleware(['auth', 'user-deleted'])
+    ->name('deleted');
 
 Route::view('restricted', 'restricted')
     ->middleware(['auth', 'restricted'])

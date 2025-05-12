@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Middleware\UserIsDeleted;
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
@@ -21,6 +22,7 @@ return Application::configure(basePath: dirname(__DIR__))
         $middleware->alias([
             'user-verified' => UserIsVerified::class,
             'user-unverified' => UserIsUnverified::class,
+            'user-deleted' => UserIsDeleted::class,
             'unrestricted' => UserIsNotRestricted::class,
             'restricted' => UserIsRestricted::class,
             'admin' => UserIsAdmin::class,
