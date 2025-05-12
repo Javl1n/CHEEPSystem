@@ -32,7 +32,7 @@ $uploadComment = function () {
         ]);
     }
 
-    $this->redirect('posts');
+    $this->redirect(route('posts.show', [$this->post]));
 };
 
 ?>

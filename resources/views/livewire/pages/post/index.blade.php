@@ -15,12 +15,12 @@ state([
 <div class="overflow-auto">
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Posts') }}
+            {{ __('Forums') }}
         </h2>
     </x-slot>
 
-    <div class="max-w-6xl mx-auto py-12 px-6 lg:px-8">
-        @unlessrole('Student')
+    <div class="max-w-7xl mx-auto py-12 px-6 lg:px-8">
+        @unlessrole('Admin')
             @livewire('post.create')
         @endrole
         

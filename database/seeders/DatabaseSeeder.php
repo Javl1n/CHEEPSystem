@@ -68,8 +68,8 @@ class DatabaseSeeder extends Seeder
         ]);
 
         $studentUser = $student->users()->create([
-            'name' => 'Kryz John F. Luceno',
-            'email' => 'kryz@gmail.com',
+            'name' => 'Leimbergh Armodia',
+            'email' => 'user@gmail.com',
             'password' => Hash::make('admin123'),
         ]);
 

@@ -50,7 +50,7 @@ $uploadPost = function () {
     <div class="text-gray-900">
         <div class="p-6 flex justify-between border-b shadow-sm">
             <h1 class="font-bold">
-                {{ __("Add Post") }}
+                {{ __("Create A Forum") }}
             </h1>
             <span class="text-sm font-bold cursor-pointer" x-on:click="open =! open">
                 <x-bootstrap-icons icon="x" class="transition linear h-5" x-bind:class="open ? '' : 'rotate-45'" />
@@ -90,7 +90,7 @@ $uploadPost = function () {
                 <x-image-upload model="photo" />
             @endif
             <div class="mt-4 border-2 rounded-md flex justify-between p-4">
-                <h1 class="text-sm font-bold p-2">Add to your post</h1>
+                <h1 class="text-sm font-bold p-2">Add to your Forum</h1>
                 <div class="flex gap-2">
                     <div class="rounded-full hover:bg-gray-100 p-2 transition cursor-pointer fill-black hover:fill-red-500" x-on:click="$wire.togglePhoto">
                         <x-bootstrap-icons icon="photo" class="h-5 " />
@@ -99,14 +99,8 @@ $uploadPost = function () {
             </div>
             
             <div class="flex items-center justify-end mt-4">
-                {{-- @if (Route::has('password.request'))
-                    <a class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" href="{{ route('password.request') }}" wire:navigate>
-                        {{ __('Forgot your password?') }}
-                    </a>
-                @endif --}}
-    
                 <x-primary-button wire:click.prevent='uploadPost' class="ms-3">
-                    {{ __('Post') }}
+                    {{ __('Save') }}
                 </x-primary-button>
             </div>
         </div>

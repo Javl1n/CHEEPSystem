@@ -28,7 +28,7 @@ $logout = function (Logout $logout) {
                 <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
                     
                     <x-nav-link :href="route('posts.index')" :active="request()->routeIs('posts.*')" wire:navigate>
-                        {{ __('Posts') }}
+                        {{ __('Forums') }}
                     </x-nav-link>
 
                     <x-nav-link :href="route('messages.index')" :active="request()->routeIs('messages.*')" wire:navigate>
@@ -44,7 +44,7 @@ $logout = function (Logout $logout) {
                             {{ __('Users') }}
                         </x-nav-link>
                         
-                        <x-nav-link :href="route('admin.evaluations.index')" :active="request()->routeIs('admin.evaluations.*')" wire:navigate>
+                        {{-- <x-nav-link :href="route('admin.evaluations.index')" :active="request()->routeIs('admin.evaluations.*')" wire:navigate>
                             {{ __('Evaluations') }}
                         </x-nav-link>
 
@@ -54,10 +54,10 @@ $logout = function (Logout $logout) {
 
                         <x-nav-link :href="route('admin.polls.index')" :active="request()->routeIs('admin.polls.*')" wire:navigate>
                             {{ __('Polls') }}
-                        </x-nav-link>
+                        </x-nav-link> --}}
                     @endrole
 
-                    @role('student') 
+                    {{-- @role('student') 
                         @feature('Evaluation')
                             <x-nav-link :href="route('student.evaluations.index')" :active="request()->routeIs('student.evaluations.*')" wire:navigate>
                                 {{ __('Evaluations') }}
@@ -72,7 +72,7 @@ $logout = function (Logout $logout) {
                         <x-nav-link :href="route('teacher.evaluations.index')" :active="request()->routeIs('teacher.evaluations.*')" wire:navigate>
                             {{ __('Evaluations') }}
                         </x-nav-link>
-                    @endrole
+                    @endrole --}}
                 </div>
             </div>
 

@@ -24,6 +24,8 @@ $delete = function ($commentID) {
 
 <div class="px-5 py-4 text-gray-900">
     <div class="border-t-2">
+    @livewire('comments.create', ['post' => $post])
+
         @foreach ($post->comments as $comment)
             <div wire:key='comment-{{ $comment->id }}' class="flex mt-4 gap-2">
                 <x-profile-picture class="h-8 shadow" :src="asset($comment->user->profile->url)" />
@@ -59,7 +61,11 @@ $delete = function ($commentID) {
                             </span>
                         </x-modal>
                     @endif
-                    <div class="text-xs text-gray-500 mt-1">
+                    <div class="text-xs text-gray-500 mt-1 flex gap-1">
+                        <div class="my-auto flex gap-1">
+                            <x-bi-heart class="h-3 w-3 my-auto" />
+                            <div>0</div>
+                        </div>
                         <span>{{ $comment->user->role->name }}</span>
                         <span>&#x2022</span>
                         <span class="">{{ $comment->created_at->diffForHumans(now(), CarbonInterface::DIFF_ABSOLUTE, true) }}</span>
@@ -69,5 +75,4 @@ $delete = function ($commentID) {
             </div>
         @endforeach
     </div>
-    @livewire('comments.create', ['post' => $post])
 </div>

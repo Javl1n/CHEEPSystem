@@ -46,6 +46,7 @@ Route::middleware(['auth', 'verified', 'user-verified', 'unrestricted'])->group(
 
     // Posts
     Volt::route('posts', 'pages.post.index')->name('posts.index');
+    Volt::route('posts/{post}', 'pages.post.show')->name('posts.show');
 
     // Messages
     Volt::route('messages/{user}', 'pages.messages.show')->name('messages.show');
