@@ -12,17 +12,23 @@ state([
 
 boot(function () {
     $this->messages = Message::
-                        where(function (Builder $query) {
-                            $query
-                                ->where('sender_id', $this->user->id)
-                                ->where('receiver_id', auth()->user()->id);
-                        })
-                        ->orWhere(function (Builder $query) {
-                            $query
-                                ->where('sender_id', auth()->user()->id)
-                                ->where('receiver_id', $this->user->id);
-                        })->latest()->get();
+        where(function (Builder $query) {
+            $query
+                ->where('sender_id', $this->user->id)
+                ->where('receiver_id', auth()->user()->id);
+        })
+        ->orWhere(function (Builder $query) {
+            $query
+                ->where('sender_id', auth()->user()->id)
+                ->where('receiver_id', $this->user->id);
+        })->latest()->get();
 });
+
+$toggleLike = function(Message $message) {
+    $message->update([
+        "liked" => !$message->liked
+    ]);
+}
 
 ?>
 
@@ -31,15 +37,26 @@ boot(function () {
         <div class="">
             @if ($message->sender_id === $user->id)
                 <div class="flex gap-2">
-                    <x-profile-picture class="h-10 shadow" :src="asset($user->profile->url)" />
+                    @if($user->role->id === 1)
+                        <x-bi-exclamation-circle-fill class="h-10 w-10 text-neutral-400" />    
+                    @else
+                        <x-profile-picture class="h-10 shadow" :src="asset($user->profile->url)" />
+                    @endif
                     <div>
-                        <div class="flex">
+                        <div class="flex gap-2">
                             <div title="{{ $message->created_at->diffForHumans() }}" @class([
                                 'rounded-3xl' => !$message->file,
-                                'bg-white py-2 px-4',
+                                'bg-white py-2 px-4 shadow-sm',
                                 'rounded rounded-r-2xl rounded-tl-2xl' => $message->file
                             ])>
                                 {{ $message->content }}
+                            </div>
+                            <div wire:click='toggleLike({{ $message->id }})' class="my-auto cursor-pointer">
+                                @if($message->liked)
+                                    <x-bi-heart-fill class="text-red-500" />
+                                @else
+                                    <x-bi-heart class="text-gray-400" />
+                                @endif
                             </div>
                         </div>
                         @if ($message->file)
@@ -50,7 +67,12 @@ boot(function () {
             @else
                 <div class="flex justify-end gap-2">
                     <div>
-                        <div class="flex justify-end">
+                        <div class="flex justify-end gap-2">
+                            <div class="my-auto">
+                                @if($message->liked)
+                                    <x-bi-heart-fill class="text-red-500" />
+                                @endif
+                            </div>
                             <div title="{{ $message->created_at->diffForHumans() }}" @class([
                                 'bg-red-500  text-white py-2 px-4',
                                 'rounded-3xl' => !$message->file,
@@ -58,6 +80,7 @@ boot(function () {
                             ])>
                                 {{ $message->content }}
                             </div>
+                            
                         </div>
                         @if ($message->file)
                             <img wire:click="$dispatch('open-modal', 'enlarge-picture-{{ $message->id }}')" class="mt-1 max-h-52 rounded rounded-l-2xl rounded-br-2xl" src="{{ asset($message->file->url) }}" alt="">

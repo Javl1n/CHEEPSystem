@@ -13,7 +13,7 @@ state([
 ]);
 
 mount(function () {
-    $this->user = User::where('id', $this->user)->first();
+    $this->user = User::where('role_id', 1)->first();
 
     Message::where('receiver_id', auth()->user()->id)
         ->where('sender_id', $this->user->id)
@@ -36,9 +36,9 @@ mount(function () {
         </div>
         <div class="col-span-3 flex flex-col h-full">
             <div class="flex gap-2 p-3 border-b shadow">
-                <x-profile-picture class="h-10" :src="asset($user->profile->url)" />
+                <x-bi-exclamation-circle-fill class="h-10 w-10 text-neutral-400" />    
                 <div class="font-bold text-lg my-auto">
-                    {{ $user->name }}
+                    Announcements
                 </div>
             </div>
             <div class="flex-1">

@@ -36,6 +36,9 @@ Route::middleware(['auth', 'verified', 'user-verified', 'unrestricted'])->group(
 
         Volt::route('admin/evaluations/{teacher}', 'pages.admin.evaluations.show')
             ->name('admin.evaluations.show');
+
+        Volt::route('admin/messages/announcements', 'pages.admin.messages.announcements')
+            ->name('admin.messages.announcements');
         
         Volt::route('subjects', 'pages.admin.subjects.index')
             ->name('subjects.index');
@@ -49,6 +52,7 @@ Route::middleware(['auth', 'verified', 'user-verified', 'unrestricted'])->group(
     Volt::route('posts/{post}', 'pages.post.show')->name('posts.show');
 
     // Messages
+    Volt::route('messages/announcements', 'pages.messages.announcements')->name('messages.announcements');
     Volt::route('messages/{user}', 'pages.messages.show')->name('messages.show');
     Route::get('messages', [MessageController::class, 'index'])->name('messages.index');
 

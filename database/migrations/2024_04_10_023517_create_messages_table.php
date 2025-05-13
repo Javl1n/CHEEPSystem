@@ -24,6 +24,8 @@ return new class extends Migration
                 table: 'users', 
                 // indexName: 'message_receiver_id'
             );
+            $table->boolean('read')->default(false);
+            $table->boolean('liked')->default(false);
             $table->timestamps();
         });
     }

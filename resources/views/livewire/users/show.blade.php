@@ -91,7 +91,7 @@ $restrictUser = function () {
             </h1>
            
             {{-- verification --}}
-            <div x-data="{open: true}" class="border border-gray-400 px-4 py-2 mt-2 rounded">
+            <div x-data="{open: false}" class="border border-gray-400 px-4 py-2 mt-2 rounded">
                 <div class="flex justify-between">
                     <h1 class="font-bold">Verification:</h1>
                     <span class="text-sm font-bold cursor-pointer" x-on:click="open =! open">
