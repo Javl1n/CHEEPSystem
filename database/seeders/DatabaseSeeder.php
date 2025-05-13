@@ -28,8 +28,8 @@ class DatabaseSeeder extends Seeder
         ]);
 
         $admin->users()->create([
-            'name' => 'Frank Leimbergh D. Armodia',
-            'email' => 'farmodia@gmail.com',
+            'name' => 'Cyber Jade M. Madrazo',
+            'email' => 'cyberjade@gmail.com',
             'password' => Hash::make('admin123'),
         ])->profile()->create([
             'url' => 'storage/images/empty_profile.jpg'
@@ -68,8 +68,8 @@ class DatabaseSeeder extends Seeder
         ]);
 
         $studentUser = $student->users()->create([
-            'name' => 'Leimbergh Armodia',
-            'email' => 'user@gmail.com',
+            'name' => 'Jay Ryan Blasco',
+            'email' => 'jay@gmail.com',
             'password' => Hash::make('admin123'),
         ]);
 
