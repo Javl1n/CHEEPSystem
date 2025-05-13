@@ -26,7 +26,7 @@
                         </a>
                     </div>
                     <div class="my-auto drop-shadow-xl">
-                        <h1 class="font-extrabold text-7xl text-white ">Notre Dame Siena <br> College of Polomolok</h1>
+                        <h1 class="font-extrabold text-7xl text-white ">Notre Dame<br>of Kiamba, Inc.</h1>
                         <h1 class="font-extrabold text-7xl text-white"></h1>
                     </div>
                 </div>
