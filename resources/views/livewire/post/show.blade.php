@@ -46,7 +46,7 @@ $verify = fn() => $this->post->update([
                             <h1 class="font-bold">k/{{ $post->category->name }}</h1>
                             <div class="flex leading-3 text-xs">
                                 <p class="">
-                                    <span>{{ $post->user->name }}</span>
+                                    <span class="font-bold">{{ $post->user->name }}</span>
                                     <span>&#x2022</span>
                                     <span>{{ $post->user->role->name }}</span>
                                     <span>&#x2022</span>

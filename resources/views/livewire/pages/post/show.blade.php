@@ -48,19 +48,14 @@ mount(function () {
                         </div>
                     </div>
                 </div>
-                {{-- @if ($this->state === 'show')  --}}
                     <div class="mt-4">
                         <p class="{{ $post->file ? 'text-lg' : 'text-3xl' }}">{{ $post->content }}</p>
-                        
-                    {{-- @elseif ($this->state === 'edit')
-                        @livewire('post.edit', ['post' => $this->post])
-                    @endif --}}
                     </div>
-                <div class="border rounded mt-4">
                     @if($post->file)
-                        <img class="mx-auto" src="{{ asset($post->file->url) }}" alt="">
+                        <div class="border rounded mt-4">
+                            <img class="mx-auto" src="{{ asset($post->file->url) }}" alt="">
+                        </div>
                     @endif
-                </div>
             </div>
             
             @livewire('post.index-footer', ['post' => $post])

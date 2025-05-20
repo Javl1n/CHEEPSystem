@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->text('content');
             // $table->foreignId('post_id')->constrained()->cascadeOnDelete();
+            $table->boolean('restricted')->default(false);
             $table->morphs("commentable");
             $table->foreignId('user_id')->constrained()->cascadeOnDelete();
             $table->timestamps();

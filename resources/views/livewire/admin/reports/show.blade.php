@@ -51,11 +51,6 @@ $restrict = function () {
                 </div>
                 <p class="text-sm leading-3"> {{ $receiver->role->name }} <span>&#x2022</span> {{ $receiver->email }} <span>&#x2022</span> {{ $report->created_at->diffForHumans() }}</p>
             </div>
-            @if ($this->report->restricted)
-                <div class="font-bold text-green-500">
-                    reviewed
-                </div>
-            @endif
         </div>
         <div class="mt-4">
             <h1 class="font-bold">Report: 
