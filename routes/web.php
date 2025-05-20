@@ -28,8 +28,8 @@ Route::middleware(['auth', 'verified', 'user-verified', 'unrestricted'])->group(
 
     // Admin
     Route::middleware(['admin'])->group(function () {
-        Volt::route('users', 'pages.admin.users.index')
-            ->name('users.index');
+        Volt::route('admin/users', 'pages.admin.users.index')
+            ->name('admin.users.index');
 
         Volt::route('admin/evaluations', 'pages.admin.evaluations.index')
             ->name('admin.evaluations.index');
@@ -45,6 +45,9 @@ Route::middleware(['auth', 'verified', 'user-verified', 'unrestricted'])->group(
 
         Volt::route('admin/polls/index', 'pages.admin.polls.index')
             ->name('admin.polls.index');
+
+        Volt::route('admin/reports/index', 'pages.admin.reports.index')
+            ->name('admin.reports.index');
     });
 
     // Posts

@@ -24,72 +24,49 @@ boot(function () {
         })->latest()->get();
 });
 
-$toggleLike = function(Message $message) {
-    $message->update([
-        "liked" => !$message->liked
-    ]);
-}
-
 ?>
 
 <div class="bg-gray-50 flex flex-col-reverse gap-3 w-full py-4 px-4 h-[calc(100vh-64px-64px-70px)] overflow-auto" wire:poll.1000ms>
     @foreach ($messages as $message)
-        <div class="">
+        <div wire:key='message-{{ $message->id }}' class="">
             @if ($message->sender_id === $user->id)
-                <div class="flex gap-2">
-                    @if($user->role->id === 1)
-                        <x-bi-exclamation-circle-fill class="h-10 w-10 text-neutral-400" />    
-                    @else
-                        <x-profile-picture class="h-10 shadow" :src="asset($user->profile->url)" />
-                    @endif
-                    <div>
-                        <div class="flex gap-2">
-                            <div title="{{ $message->created_at->diffForHumans() }}" @class([
-                                'rounded-3xl' => !$message->file,
-                                'bg-white py-2 px-4 shadow-sm',
-                                'rounded rounded-r-2xl rounded-tl-2xl' => $message->file
-                            ])>
-                                {{ $message->content }}
-                            </div>
-                            <div wire:click='toggleLike({{ $message->id }})' class="my-auto cursor-pointer">
-                                @if($message->liked)
-                                    <x-bi-heart-fill class="text-red-500" />
-                                @else
-                                    <x-bi-heart class="text-gray-400" />
-                                @endif
-                            </div>
-                        </div>
-                        @if ($message->file)
-                            <img wire:click="$dispatch('open-modal', 'enlarge-picture-{{ $message->id }}')" class="mt-1 max-h-52 rounded rounded-r-2xl rounded-bl-2xl" src="{{ asset($message->file->url) }}" alt="">
-                        @endif
-                    </div>
-                </div>
+                <livewire:messages.received-chat :key="'receiver-'.$message->id" :$user :$message />
             @else
-                <div class="flex justify-end gap-2">
-                    <div>
-                        <div class="flex justify-end gap-2">
-                            <div class="my-auto">
-                                @if($message->liked)
-                                    <x-bi-heart-fill class="text-red-500" />
-                                @endif
+                @if(!$message->report?->restricted)
+                    <div class="flex justify-end gap-2">
+                        <div>
+                            <div class="flex justify-end gap-2">
+                                <div class="my-auto">
+                                    @if($message->liked)
+                                        <x-bi-heart-fill class="text-red-500" />
+                                    @endif
+                                </div>
+                                <div title="{{ $message->created_at->diffForHumans() }}" @class([
+                                    'bg-red-500  text-white py-2 px-4',
+                                    'rounded-3xl' => !$message->file,
+                                    'rounded rounded-l-2xl rounded-tr-2xl' => $message->file
+                                ])>
+                                    {{ $message->content }}
+                                </div>
+                                
                             </div>
-                            <div title="{{ $message->created_at->diffForHumans() }}" @class([
-                                'bg-red-500  text-white py-2 px-4',
-                                'rounded-3xl' => !$message->file,
-                                'rounded rounded-l-2xl rounded-tr-2xl' => $message->file
-                            ])>
-                                {{ $message->content }}
-                            </div>
-                            
+                            @if ($message->file)
+                                <img wire:click="$dispatch('open-modal', 'enlarge-picture-{{ $message->id }}')" class="mt-1 max-h-52 rounded rounded-l-2xl rounded-br-2xl" src="{{ asset($message->file->url) }}" alt="">
+                            @endif
                         </div>
-                        @if ($message->file)
-                            <img wire:click="$dispatch('open-modal', 'enlarge-picture-{{ $message->id }}')" class="mt-1 max-h-52 rounded rounded-l-2xl rounded-br-2xl" src="{{ asset($message->file->url) }}" alt="">
-                        @endif
                     </div>
-                </div>
+                @else
+                    <div class="flex justify-end">
+                        <div title="{{ $message->created_at->diffForHumans() }}" @class([
+                                'border-2 py-2 px-4 text-sm rounded-full font-bold text-gray-500 italic',
+                            ])>
+                                This message has been hidden
+                            </div>
+                    </div>
+                @endif
             @endif
             @if ($message->file)
-                <x-modal name="enlarge-picture-{{ $message->id }}" :show="$errors->isNotEmpty()" focusable>
+                <x-modal name="enlarge-picture-{{ $message->id }}" :key="'enlarge-picture-' . $message->id" :show="$errors->isNotEmpty()" focusable>
                     <img src="{{ asset($message->file->url) }}" alt="">
                     <span class="text-sm font-bold cursor-pointer absolute top-2 right-2 hover:bg-white hover:bg-opacity-50 transition linear rounded-full" x-on:click="$dispatch('close')">
                         <x-bootstrap-icons icon="x" class="fill-white transition linear h-5 drop-shadow"/>

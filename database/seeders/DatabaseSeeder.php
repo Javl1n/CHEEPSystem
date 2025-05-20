@@ -101,7 +101,8 @@ class DatabaseSeeder extends Seeder
         }
 
         $this->call([
-            PollSeeder::class,
+            // PollSeeder::class,
+            CategorySeeder::class
             // EvaluationSeeder::class,
         ]);   
     }

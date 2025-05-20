@@ -42,4 +42,9 @@ class Message extends Model
     {
         return $this->morphOne(File::class, 'fileable');
     }
+
+    public function report()
+    {
+        return $this->hasOne(Report::class);
+    }
 }

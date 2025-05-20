@@ -3,12 +3,14 @@
 use function Livewire\Volt\{rules, state, usesFileUploads };
 use Illuminate\Validation\Rules;
 use App\Models\User;
+use App\Models\Category;
 
 usesFileUploads();
 
 state([
     'contentInput', 
     'photo',
+    'category' => "1",
     'withPhoto' => false
 ]);
 
@@ -17,7 +19,7 @@ $togglePhoto = function () {
     $this->photo = '';
 };
 
-$uploadPost = function () {
+$uploadPost = function () {    
     $this->validate([
         'contentInput' => 'required',
     ]);
@@ -31,7 +33,8 @@ $uploadPost = function () {
 
     $post = auth()->user()->posts()->create([
         'content' => $this->contentInput,
-        'verified' => auth()->user()->role->id === 1 ? true : false
+        'verified' => auth()->user()->role->id === 1 ? true : false,
+        "category_id" => (int) $this->category
     ]);
 
     if($this->photo) {
@@ -69,6 +72,13 @@ $uploadPost = function () {
                         {{-- {{ auth()->user()->email }} &#x2022  --}}
                         {{ auth()->user()->role->name }}
                     </p>
+                </div>
+                <div>
+                    <select class="rounded-xl border-neutral-400" wire:model="category">
+                        @foreach (Category::all() as $category)
+                            <option value="{{ $category->id }}">{{ $category->name }}</option>
+                        @endforeach
+                    </select>
                 </div>
             </div>
             <div class="mb-10 mt-6">

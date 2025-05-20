@@ -44,4 +44,9 @@ class Post extends Model
     {
         return $this->morphMany(Like::class, 'likeable');
     }
+
+    public function category()
+    {
+        return $this->belongsTo(Category::class);
+    }
 }

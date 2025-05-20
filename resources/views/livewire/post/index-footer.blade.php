@@ -11,16 +11,16 @@ $like = function () {
     // check if auth likes the forum
     $like = $this->post->likes->where('user_id', auth()->user()->id)->first();
     if(! $like) {
-        // remove from db if liked
+        // add to db if not liked
         $this->post->likes()->create([
             'user_id' => auth()->user()->id
         ]);
     } else {
+        // remove from db if liked
         $like->delete();
     }
 
     $this->redirect(request()->header("Referer"));
-    // add to db if not liked
 };
 
 $likes = computed(function () {
@@ -29,7 +29,7 @@ $likes = computed(function () {
 
 $commentCount = computed(function ($comment) {
     if ($comment->comments->count() == 0) {
-        return 1;
+        return 0;
     }
 
     foreach($comment->comments as $commentChild) {

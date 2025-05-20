@@ -43,9 +43,11 @@ $verify = fn() => $this->post->update([
                     <div class="flex gap-2">
                         <x-profile-picture :src="asset($post->user->profile->url)" class="h-10 shadow" />
                         <div>
-                            <h1 class="font-bold">{{ $post->user->name }}</h1>
+                            <h1 class="font-bold">k/{{ $post->category->name }}</h1>
                             <div class="flex leading-3 text-xs">
                                 <p class="">
+                                    <span>{{ $post->user->name }}</span>
+                                    <span>&#x2022</span>
                                     <span>{{ $post->user->role->name }}</span>
                                     <span>&#x2022</span>
                                     {{-- <span>{{ $post->user->email }}</span> --}}

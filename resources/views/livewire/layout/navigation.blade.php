@@ -40,8 +40,12 @@ $logout = function (Logout $logout) {
                             {{ __('Dashboard') }}
                         </x-nav-link> --}}
 
-                        <x-nav-link :href="route('users.index')" :active="request()->routeIs('users.*')" wire:navigate>
+                        <x-nav-link :href="route('admin.users.index')" :active="request()->routeIs('admin.users.*')" wire:navigate>
                             {{ __('Users') }}
+                        </x-nav-link>
+
+                        <x-nav-link :href="route('admin.reports.index')" :active="request()->routeIs('admin.reports.*')" wire:navigate>
+                            {{ __('Reports') }}
                         </x-nav-link>
                         
                         {{-- <x-nav-link :href="route('admin.evaluations.index')" :active="request()->routeIs('admin.evaluations.*')" wire:navigate>
